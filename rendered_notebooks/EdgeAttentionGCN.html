@@ -1,0 +1,1119 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Edge-Enhanced Attention GCN &#8212; Deep Learning in Biomedicine - Homework 2</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=c5ced968eda925caa686" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=c5ced968eda925caa686"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'rendered_notebooks/EdgeAttentionGCN';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Attention GCN" href="AttentionGCN.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Deep Learning in Biomedicine - Homework 2 - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Deep Learning in Biomedicine - Homework 2 - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Dataset &amp; preprocessing</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Dataset.html">MUTAG Dataset</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Hyperparameter tuning</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../wandb_comparisons/GCN_comparison.html">Hyperparameter tuning for GCN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wandb_comparisons/SAGE_comparison.html">Hyperparameter tuning for GraphSAGE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wandb_comparisons/AttGCN_comparison.html">Hyperparameter tuning for Attention GCN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wandb_comparisons/EdgeAttGCN_comparison.html">Hyperparameter tuning for Edge-Enhanced Attention GCN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wandb_comparisons/best_runs.html">Summary of model performance</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Best models notebooks</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GCN.html">Graph Convolutional Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SAGE.html">GraphSAGE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AttentionGCN.html">Attention GCN</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Edge-Enhanced Attention GCN</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/rendered_notebooks/EdgeAttentionGCN.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Edge-Enhanced Attention GCN</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#edge-enhanced-attention-gnn-definition">Edge-Enhanced Attention GNN definition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#validating-our-model">Validating our model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#training">Training</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model">Model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#training-parameters">Training parameters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#training-loop">Training loop</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plots-of-training-history">Plots of training history</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-on-unseen-data">Validation on unseen data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#full-dataset-performance">Full dataset performance</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#full-roc-curve">Full ROC curve</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#predictions-distribution">Predictions distribution</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#confusion-matrix">Confusion matrix</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-mislabelled-molecules">Check mislabelled molecules</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="edge-enhanced-attention-gcn">
+<span id="section-edge-attention"></span><h1>Edge-Enhanced Attention GCN<a class="headerlink" href="#edge-enhanced-attention-gcn" title="Permalink to this heading">#</a></h1>
+<section id="edge-enhanced-attention-gnn-definition">
+<h2>Edge-Enhanced Attention GNN definition<a class="headerlink" href="#edge-enhanced-attention-gnn-definition" title="Permalink to this heading">#</a></h2>
+<p>We would now like to make use of edge features in our model, as we are for now completely missing out on these additional predictors.</p>
+<p>To this end, we will use a custom approach inspired by the <a class="reference external" href="https://ieeexplore.ieee.org/document/8954414/">Exploiting Edge Features for Graph Neural Networks</a> paper by Gong and Cheng, 2019.</p>
+<p>We will adapt their Attention-based edge-enhanced neural network, termed <strong>EGNN(A)</strong>, by redefining our Attention layer in the following way :</p>
+<ul>
+<li><p>Compute the attention score <span class="math notranslate nohighlight">\(\alpha^l_{ij}\)</span> separately for each feature dimension <span class="math notranslate nohighlight">\(p\)</span> such that:</p>
+<p><span class="math notranslate nohighlight">\(\alpha^l_{ijp} = f^l(X^{l-1}_i, X^{l-1}_j) \cdot  E^{l-1}_{ijp}\)</span></p>
+<p>In this, <span class="math notranslate nohighlight">\(f^l\)</span> is our previously used formula for the attention score (scalar) and <span class="math notranslate nohighlight">\(X^{l-1}\)</span> the output of the previous layer.</p>
+<p>Here we simply compute the dot product with the edge feature matrix <span class="math notranslate nohighlight">\(E\)</span> of shape <span class="math notranslate nohighlight">\(N \times N \times E_{feat}\)</span>.</p>
+</li>
+<li><p>Replace their proposed Double Stochastic Normalization with Group normalization for simplicity.
+We only have to ensure that the channel dimension corresponds to the edge features before normalizing; we will select the number of groups as a hyperparameter.</p></li>
+<li><p>The obtained edge-enhanced attention score <span class="math notranslate nohighlight">\(\alpha^l\)</span> of shape <span class="math notranslate nohighlight">\(N \times N \times E_{feat}\)</span> is then used as the edge features <span class="math notranslate nohighlight">\(E^l\)</span> in the next layer as they suggest, i.e. <span class="math notranslate nohighlight">\(E^{l} = \alpha^l\)</span></p></li>
+<li><p>Then, not unlike multi-head attention (but with edge feature-specific heads instead of randomly initialized heads using the same input data), we concatenate on the edge feature dimension and feed the result to a fully-connected layer.</p>
+<p>With this we obtain <span class="math notranslate nohighlight">\(A^l\)</span> of shape <span class="math notranslate nohighlight">\(B \times N \times N\)</span> :</p>
+<p><span class="math notranslate nohighlight">\(A^l_{ij} = a_{ij} \vert \vert_{p=1}^P  \alpha_{ijp}^l\)</span></p>
+<p>where <span class="math notranslate nohighlight">\(a\)</span> is a learnable weight of shape <span class="math notranslate nohighlight">\((E_{feat} N) \times N\)</span> and <span class="math notranslate nohighlight">\(\vert \vert\)</span> is the concatenation operator.</p>
+</li>
+<li><p>Finally, the output is obtained by multiplying <span class="math notranslate nohighlight">\(A^l\)</span> with the support <span class="math notranslate nohighlight">\(X^{l-1} W^l\)</span> and applying the activation function:</p>
+<p><span class="math notranslate nohighlight">\(X^l = \sigma (A^l X^{l-1} W^l)\)</span></p>
+</li>
+<li><p>We return <span class="math notranslate nohighlight">\(X^l\)</span> and <span class="math notranslate nohighlight">\(E^l\)</span>, to be used by the next layer.</p></li>
+</ul>
+</section>
+<section id="validating-our-model">
+<h2>Validating our model<a class="headerlink" href="#validating-our-model" title="Permalink to this heading">#</a></h2>
+<p>In order to show that our proposed architecture is indeed an improvement, we perform some simple checks to make sure that our edge features and the Group normalization are actually helpful.</p>
+<p>We will compare performance when :</p>
+<ul class="simple">
+<li><p>Setting the edge feature matrix <span class="math notranslate nohighlight">\(E^l\)</span> to ones</p></li>
+<li><p>Setting the edge-enhanced attention matrix <span class="math notranslate nohighlight">\(A^l\)</span> to ones before multiplying with the support</p></li>
+<li><p>Removing the Group normalization</p></li>
+</ul>
+<p>Results can be seen in <a class="reference internal" href="../wandb_comparisons/EdgeAttGCN_comparison.html#section-edgeattgcn-validation"><span class="std std-ref">Hyperparameter tuning for Edge-Enhanced Attention GCN</span></a>.</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="n">path</span>
+
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span>
+    <span class="s2">&quot;ignore&quot;</span>
+<span class="p">)</span>  <span class="c1"># ignore warnings from missing deterministic implementation. These are strictly from wandb and do not affect the reproducibility of the actual runs.</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span>
+    <span class="s2">&quot;WANDB_NOTEBOOK_NAME&quot;</span>
+<span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;EdgeAttentionGCN.ipynb&quot;</span>  <span class="c1"># name the notebook for wandb tracking</span>
+<span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;../code&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> autoreload
+<span class="o">%</span><span class="k">autoreload</span> 2
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">nn</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">ConfusionMatrixDisplay</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">model</span> <span class="k">as</span> <span class="nn">m</span>
+<span class="kn">import</span> <span class="nn">training</span> <span class="k">as</span> <span class="nn">t</span>
+<span class="kn">import</span> <span class="nn">utils</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="n">LOG</span> <span class="k">as</span> <span class="n">logger</span>
+
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span>
+    <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%(message)s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span>
+<span class="p">)</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+<span class="c1"># logger.setLevel(logging.DEBUG)</span>
+
+<span class="c1"># t.WANDB_MODE = &quot;disabled&quot;</span>
+
+<span class="n">DEVICE</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cuda:0&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dataloaders</span><span class="p">,</span> <span class="n">dataset</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">create_dataloaders</span><span class="p">(</span>
+    <span class="n">batch_size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+    <span class="n">use_edge_features</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="c1"># train_split=0.5,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Length of train set: 131
+Length of validation set: 28
+Length of test set: 29
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="training">
+<h2>Training<a class="headerlink" href="#training" title="Permalink to this heading">#</a></h2>
+<section id="model">
+<h3>Model<a class="headerlink" href="#model" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">node_features</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">node_features</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">conv_dims</span> <span class="o">=</span> <span class="p">[</span><span class="mi">256</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">64</span><span class="p">]</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">EdgeAttentionGCN</span><span class="p">(</span>
+    <span class="n">num_features</span><span class="o">=</span><span class="n">node_features</span><span class="p">,</span>
+    <span class="n">conv_dims</span><span class="o">=</span><span class="n">conv_dims</span><span class="p">,</span>
+    <span class="c1"># fcn_layers=[128],</span>
+    <span class="n">activation</span><span class="o">=</span><span class="n">nn</span><span class="o">.</span><span class="n">LeakyReLU</span><span class="p">(),</span>
+    <span class="n">dropout</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>
+    <span class="n">pooling</span><span class="o">=</span><span class="s2">&quot;max&quot;</span><span class="p">,</span>
+    <span class="n">norm</span><span class="o">=</span><span class="n">nn</span><span class="o">.</span><span class="n">BatchNorm1d</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># utils._print_gradient_hook(model)</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Initialized model with 4 graph conv layers
+Initialized model with 1 fully connected layers
+EdgeAttentionGCN(
+  (convs_layers): ModuleList(
+    (0): EdgeConv(
+      (weight): Linear(in_features=7, out_features=256, bias=False)
+      (S): Linear(in_features=512, out_features=28, bias=False)
+      (edge_layer): Linear(in_features=112, out_features=28, bias=False)
+      (activation): LeakyReLU(negative_slope=0.01)
+      (att_activation): LeakyReLU(negative_slope=0.1)
+      (softmax): Softmax(dim=1)
+      (instance_norm): GroupNorm(4, 4, eps=1e-05, affine=True)
+    )
+    (1): EdgeConv(
+      (weight): Linear(in_features=256, out_features=256, bias=False)
+      (S): Linear(in_features=512, out_features=28, bias=False)
+      (edge_layer): Linear(in_features=112, out_features=28, bias=False)
+      (activation): LeakyReLU(negative_slope=0.01)
+      (att_activation): LeakyReLU(negative_slope=0.1)
+      (softmax): Softmax(dim=1)
+      (instance_norm): GroupNorm(4, 4, eps=1e-05, affine=True)
+    )
+    (2): EdgeConv(
+      (weight): Linear(in_features=256, out_features=128, bias=False)
+      (S): Linear(in_features=256, out_features=28, bias=False)
+      (edge_layer): Linear(in_features=112, out_features=28, bias=False)
+      (activation): LeakyReLU(negative_slope=0.01)
+      (att_activation): LeakyReLU(negative_slope=0.1)
+      (softmax): Softmax(dim=1)
+      (instance_norm): GroupNorm(4, 4, eps=1e-05, affine=True)
+    )
+    (3): EdgeConv(
+      (weight): Linear(in_features=128, out_features=64, bias=False)
+      (S): Linear(in_features=128, out_features=28, bias=False)
+      (edge_layer): Linear(in_features=112, out_features=28, bias=False)
+      (activation): Identity()
+      (att_activation): LeakyReLU(negative_slope=0.1)
+      (softmax): Softmax(dim=1)
+      (instance_norm): GroupNorm(4, 4, eps=1e-05, affine=True)
+    )
+  )
+  (batch_norms): ModuleList(
+    (0-1): 2 x BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Identity()
+  )
+  (fcn_layers): ModuleList(
+    (0): Linear(in_features=64, out_features=1, bias=True)
+  )
+  (dropout): Dropout(p=0.3, inplace=False)
+  (pooling): MaxPooling()
+)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="training-parameters">
+<h3>Training parameters<a class="headerlink" href="#training-parameters" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">epochs</span> <span class="o">=</span> <span class="mi">200</span> <span class="c1"># this model converges much faster than the others</span>
+<span class="n">learning_rate</span> <span class="o">=</span> <span class="mf">1e-4</span> <span class="c1"># it also benefits from a lower learning rate</span>
+
+<span class="n">model</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">DEVICE</span><span class="p">)</span>
+
+<span class="n">label_counts</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[:][</span><span class="s2">&quot;class_y&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">pos_weight</span> <span class="o">=</span> <span class="n">label_counts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">label_counts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="n">loss_fn</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">BCEWithLogitsLoss</span><span class="p">(</span><span class="n">pos_weight</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">pos_weight</span><span class="p">))</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="n">learning_rate</span><span class="p">)</span>
+
+<span class="n">history</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;epoch&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s2">&quot;loss&quot;</span><span class="p">:</span> <span class="p">[],</span>
+    <span class="s2">&quot;acc&quot;</span><span class="p">:</span> <span class="p">[],</span>
+    <span class="s2">&quot;val-roc&quot;</span><span class="p">:</span> <span class="p">[],</span>
+    <span class="s2">&quot;val-ap&quot;</span><span class="p">:</span> <span class="p">[],</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="training-loop">
+<h3>Training loop<a class="headerlink" href="#training-loop" title="Permalink to this heading">#</a></h3>
+<div class="cell tag_output_scroll docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">history</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">train_loop</span><span class="p">(</span>
+    <span class="n">history</span><span class="o">=</span><span class="n">history</span><span class="p">,</span>
+    <span class="n">train_dataloader</span><span class="o">=</span><span class="n">dataloaders</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+    <span class="n">val_dataloader</span><span class="o">=</span><span class="n">dataloaders</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+    <span class="n">optimizer</span><span class="o">=</span><span class="n">optimizer</span><span class="p">,</span>
+    <span class="n">loss_fn</span><span class="o">=</span><span class="n">loss_fn</span><span class="p">,</span>
+    <span class="n">epochs</span><span class="o">=</span><span class="n">epochs</span><span class="p">,</span>
+    <span class="n">device</span><span class="o">=</span><span class="n">DEVICE</span><span class="p">,</span>
+    <span class="n">use_scheduler</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">test_dataloader</span><span class="o">=</span><span class="n">dataloaders</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+    <span class="n">use_edges</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Bold -Color-Bold-Blue">wandb</span>: Currently logged in as: <span class=" -Color -Color-Yellow">c-achard</span>. Use <span class=" -Color -Color-Bold">`wandb login --relogin`</span> to force relogin
+</pre></div>
+</div>
+<div class="output text_html">Tracking run with wandb version 0.15.12</div><div class="output text_html">Run data is saved locally in <code>c:\Users\Cyril\Desktop\Code\Deep-Learning-Biomed\Homework_2\book\rendered_notebooks\wandb\run-20231021_162025-l2wi27pw</code></div><div class="output text_html">Syncing run <strong><a href='https://wandb.ai/c-achard/DL%20Biomed%20Homework%202%20-%20v3/runs/l2wi27pw' target="_blank">fallen-puddle-75</a></strong> to <a href='https://wandb.ai/c-achard/DL%20Biomed%20Homework%202%20-%20v3' target="_blank">Weights & Biases</a> (<a href='https://wandb.me/run' target="_blank">docs</a>)<br/></div><div class="output text_html"> View project at <a href='https://wandb.ai/c-achard/DL%20Biomed%20Homework%202%20-%20v3' target="_blank">https://wandb.ai/c-achard/DL%20Biomed%20Homework%202%20-%20v3</a></div><div class="output text_html"> View run at <a href='https://wandb.ai/c-achard/DL%20Biomed%20Homework%202%20-%20v3/runs/l2wi27pw' target="_blank">https://wandb.ai/c-achard/DL%20Biomed%20Homework%202%20-%20v3/runs/l2wi27pw</a></div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch   1/200:Epoch loss: 0.8547 - avg acc: 30.5% - val-roc: 0.7551 - val-ap: 0.7927 (0.5s/epoch)
+Epoch   2/200:Epoch loss: 0.8229 - avg acc: 30.5% - val-roc: 0.8367 - val-ap: 0.8719 (0.1s/epoch)
+Epoch   3/200:Epoch loss: 0.6942 - avg acc: 30.5% - val-roc: 0.8571 - val-ap: 0.9011 (0.2s/epoch)
+Epoch   4/200:Epoch loss: 0.6281 - avg acc: 30.5% - val-roc: 0.8520 - val-ap: 0.9025 (0.2s/epoch)
+Epoch   5/200:Epoch loss: 0.5854 - avg acc: 30.5% - val-roc: 0.8367 - val-ap: 0.8865 (0.2s/epoch)
+Epoch   6/200:Epoch loss: 0.4621 - avg acc: 30.5% - val-roc: 0.7857 - val-ap: 0.8465 (0.2s/epoch)
+Epoch   7/200:Epoch loss: 0.4798 - avg acc: 30.5% - val-roc: 0.7398 - val-ap: 0.8151 (0.1s/epoch)
+Epoch   8/200:Epoch loss: 0.4373 - avg acc: 31.3% - val-roc: 0.7347 - val-ap: 0.8136 (0.1s/epoch)
+Epoch   9/200:Epoch loss: 0.3781 - avg acc: 32.1% - val-roc: 0.7347 - val-ap: 0.8104 (0.1s/epoch)
+Epoch  10/200:Epoch loss: 0.4047 - avg acc: 33.6% - val-roc: 0.7857 - val-ap: 0.8379 (0.1s/epoch)
+Epoch  11/200:Epoch loss: 0.3483 - avg acc: 34.4% - val-roc: 0.7857 - val-ap: 0.8274 (0.1s/epoch)
+Epoch  12/200:Epoch loss: 0.3539 - avg acc: 37.4% - val-roc: 0.7959 - val-ap: 0.8267 (0.2s/epoch)
+Epoch  13/200:Epoch loss: 0.3533 - avg acc: 36.6% - val-roc: 0.7908 - val-ap: 0.8148 (0.1s/epoch)
+Epoch  14/200:Epoch loss: 0.3279 - avg acc: 37.4% - val-roc: 0.8061 - val-ap: 0.8228 (0.1s/epoch)
+Epoch  15/200:Epoch loss: 0.3074 - avg acc: 36.6% - val-roc: 0.8061 - val-ap: 0.8265 (0.2s/epoch)
+Epoch  16/200:Epoch loss: 0.3455 - avg acc: 36.6% - val-roc: 0.8112 - val-ap: 0.8211 (0.2s/epoch)
+Epoch  17/200:Epoch loss: 0.2500 - avg acc: 37.4% - val-roc: 0.8112 - val-ap: 0.8106 (0.2s/epoch)
+Epoch  18/200:Epoch loss: 0.3071 - avg acc: 37.4% - val-roc: 0.8112 - val-ap: 0.8145 (0.2s/epoch)
+Epoch  19/200:Epoch loss: 0.3333 - avg acc: 37.4% - val-roc: 0.8112 - val-ap: 0.8147 (0.3s/epoch)
+Epoch  20/200:Epoch loss: 0.2852 - avg acc: 37.4% - val-roc: 0.8163 - val-ap: 0.7983 (0.2s/epoch)
+Epoch  21/200:Epoch loss: 0.2973 - avg acc: 37.4% - val-roc: 0.8010 - val-ap: 0.7767 (0.2s/epoch)
+Epoch  22/200:Epoch loss: 0.2527 - avg acc: 40.5% - val-roc: 0.7908 - val-ap: 0.7807 (0.1s/epoch)
+Epoch  23/200:Epoch loss: 0.2623 - avg acc: 41.2% - val-roc: 0.7959 - val-ap: 0.8056 (0.2s/epoch)
+Epoch  24/200:Epoch loss: 0.2349 - avg acc: 42.0% - val-roc: 0.7959 - val-ap: 0.8080 (0.1s/epoch)
+Epoch  25/200:Epoch loss: 0.2452 - avg acc: 44.3% - val-roc: 0.8010 - val-ap: 0.8157 (0.1s/epoch)
+Epoch  26/200:Epoch loss: 0.2307 - avg acc: 43.5% - val-roc: 0.8061 - val-ap: 0.8159 (0.1s/epoch)
+Epoch  27/200:Epoch loss: 0.2093 - avg acc: 45.0% - val-roc: 0.8112 - val-ap: 0.8257 (0.1s/epoch)
+Epoch  28/200:Epoch loss: 0.2342 - avg acc: 46.6% - val-roc: 0.8163 - val-ap: 0.8333 (0.2s/epoch)
+Epoch  29/200:Epoch loss: 0.1984 - avg acc: 46.6% - val-roc: 0.8163 - val-ap: 0.8277 (0.2s/epoch)
+Epoch  30/200:Epoch loss: 0.1390 - avg acc: 46.6% - val-roc: 0.8163 - val-ap: 0.8156 (0.2s/epoch)
+Epoch  31/200:Epoch loss: 0.1583 - avg acc: 47.3% - val-roc: 0.8316 - val-ap: 0.8359 (0.2s/epoch)
+Epoch  32/200:Epoch loss: 0.1273 - avg acc: 47.3% - val-roc: 0.8316 - val-ap: 0.8244 (0.2s/epoch)
+Epoch  33/200:Epoch loss: 0.2196 - avg acc: 50.4% - val-roc: 0.8469 - val-ap: 0.8433 (0.2s/epoch)
+Epoch  34/200:Epoch loss: 0.1588 - avg acc: 51.9% - val-roc: 0.8571 - val-ap: 0.8471 (0.2s/epoch)
+Epoch  35/200:Epoch loss: 0.1904 - avg acc: 51.9% - val-roc: 0.8622 - val-ap: 0.8493 (0.2s/epoch)
+Epoch  36/200:Epoch loss: 0.1403 - avg acc: 51.1% - val-roc: 0.8724 - val-ap: 0.8636 (0.2s/epoch)
+Epoch  37/200:Epoch loss: 0.1701 - avg acc: 51.9% - val-roc: 0.8776 - val-ap: 0.8662 (0.2s/epoch)
+Epoch  38/200:Epoch loss: 0.2017 - avg acc: 51.9% - val-roc: 0.8776 - val-ap: 0.8656 (0.2s/epoch)
+Epoch  39/200:Epoch loss: 0.1411 - avg acc: 51.9% - val-roc: 0.8776 - val-ap: 0.8656 (0.2s/epoch)
+Epoch  40/200:Epoch loss: 0.1241 - avg acc: 54.2% - val-roc: 0.8878 - val-ap: 0.8768 (0.2s/epoch)
+Epoch  41/200:Epoch loss: 0.1325 - avg acc: 55.0% - val-roc: 0.8929 - val-ap: 0.8809 (0.2s/epoch)
+Epoch  42/200:Epoch loss: 0.1458 - avg acc: 55.0% - val-roc: 0.8929 - val-ap: 0.8809 (0.1s/epoch)
+Epoch  43/200:Epoch loss: 0.0882 - avg acc: 56.5% - val-roc: 0.8929 - val-ap: 0.8809 (0.2s/epoch)
+Epoch  44/200:Epoch loss: 0.1151 - avg acc: 55.7% - val-roc: 0.8878 - val-ap: 0.8732 (0.2s/epoch)
+Epoch  45/200:Epoch loss: 0.1482 - avg acc: 58.0% - val-roc: 0.8929 - val-ap: 0.8809 (0.2s/epoch)
+Epoch  46/200:Epoch loss: 0.0878 - avg acc: 58.0% - val-roc: 0.8929 - val-ap: 0.8809 (0.2s/epoch)
+Epoch  47/200:Epoch loss: 0.1028 - avg acc: 58.8% - val-roc: 0.8980 - val-ap: 0.8843 (0.2s/epoch)
+Epoch  48/200:Epoch loss: 0.0999 - avg acc: 60.3% - val-roc: 0.8980 - val-ap: 0.8843 (0.1s/epoch)
+Epoch  49/200:Epoch loss: 0.0654 - avg acc: 58.8% - val-roc: 0.9031 - val-ap: 0.8876 (0.1s/epoch)
+Epoch  50/200:Epoch loss: 0.1199 - avg acc: 60.3% - val-roc: 0.9031 - val-ap: 0.8876 (0.2s/epoch)
+Epoch  51/200:Epoch loss: 0.1378 - avg acc: 63.4% - val-roc: 0.9082 - val-ap: 0.8945 (0.1s/epoch)
+Epoch  52/200:Epoch loss: 0.0923 - avg acc: 65.6% - val-roc: 0.9082 - val-ap: 0.8945 (0.1s/epoch)
+Epoch  53/200:Epoch loss: 0.0485 - avg acc: 67.2% - val-roc: 0.9082 - val-ap: 0.8945 (0.1s/epoch)
+Epoch  54/200:Epoch loss: 0.0706 - avg acc: 66.4% - val-roc: 0.9133 - val-ap: 0.8984 (0.1s/epoch)
+Epoch  55/200:Epoch loss: 0.0468 - avg acc: 68.7% - val-roc: 0.9082 - val-ap: 0.8914 (0.2s/epoch)
+Epoch  56/200:Epoch loss: 0.0991 - avg acc: 69.5% - val-roc: 0.9031 - val-ap: 0.8838 (0.2s/epoch)
+Epoch  57/200:Epoch loss: 0.1314 - avg acc: 69.5% - val-roc: 0.8980 - val-ap: 0.8799 (0.1s/epoch)
+Epoch  58/200:Epoch loss: 0.0765 - avg acc: 71.8% - val-roc: 0.8980 - val-ap: 0.8799 (0.2s/epoch)
+Epoch  59/200:Epoch loss: 0.0730 - avg acc: 69.5% - val-roc: 0.8980 - val-ap: 0.8799 (0.2s/epoch)
+Epoch  60/200:Epoch loss: 0.0632 - avg acc: 71.8% - val-roc: 0.8980 - val-ap: 0.8799 (0.2s/epoch)
+Epoch  61/200:Epoch loss: 0.0682 - avg acc: 73.3% - val-roc: 0.8980 - val-ap: 0.8799 (0.2s/epoch)
+Epoch  62/200:Epoch loss: 0.0533 - avg acc: 75.6% - val-roc: 0.8980 - val-ap: 0.8799 (0.2s/epoch)
+Epoch  63/200:Epoch loss: 0.0880 - avg acc: 74.8% - val-roc: 0.9031 - val-ap: 0.8876 (0.2s/epoch)
+Epoch  64/200:Epoch loss: 0.0847 - avg acc: 74.8% - val-roc: 0.9031 - val-ap: 0.8876 (0.1s/epoch)
+Epoch  65/200:Epoch loss: 0.0609 - avg acc: 77.9% - val-roc: 0.9031 - val-ap: 0.8876 (0.1s/epoch)
+Epoch  66/200:Epoch loss: 0.0503 - avg acc: 79.4% - val-roc: 0.8980 - val-ap: 0.8799 (0.1s/epoch)
+Epoch  67/200:Epoch loss: 0.0408 - avg acc: 81.7% - val-roc: 0.8980 - val-ap: 0.8799 (0.2s/epoch)
+Epoch  68/200:Epoch loss: 0.0571 - avg acc: 83.2% - val-roc: 0.8980 - val-ap: 0.8799 (0.1s/epoch)
+Epoch  69/200:Epoch loss: 0.0463 - avg acc: 86.3% - val-roc: 0.8980 - val-ap: 0.8799 (0.1s/epoch)
+Epoch  70/200:Epoch loss: 0.0654 - avg acc: 87.8% - val-roc: 0.8980 - val-ap: 0.8799 (0.1s/epoch)
+Epoch  71/200:Epoch loss: 0.0577 - avg acc: 87.8% - val-roc: 0.8980 - val-ap: 0.8799 (0.1s/epoch)
+Epoch  72/200:Epoch loss: 0.0408 - avg acc: 87.0% - val-roc: 0.9031 - val-ap: 0.8876 (0.2s/epoch)
+Epoch  73/200:Epoch loss: 0.0389 - avg acc: 86.3% - val-roc: 0.9031 - val-ap: 0.8876 (0.1s/epoch)
+Epoch  74/200:Epoch loss: 0.0258 - avg acc: 86.3% - val-roc: 0.9031 - val-ap: 0.8876 (0.1s/epoch)
+Epoch  75/200:Epoch loss: 0.0276 - avg acc: 86.3% - val-roc: 0.9031 - val-ap: 0.8876 (0.1s/epoch)
+Epoch  76/200:Epoch loss: 0.0512 - avg acc: 87.8% - val-roc: 0.9031 - val-ap: 0.8876 (0.1s/epoch)
+Epoch  77/200:Epoch loss: 0.0405 - avg acc: 85.5% - val-roc: 0.8980 - val-ap: 0.8843 (0.1s/epoch)
+Epoch  78/200:Epoch loss: 0.0409 - avg acc: 87.0% - val-roc: 0.8878 - val-ap: 0.8726 (0.2s/epoch)
+Epoch  79/200:Epoch loss: 0.0296 - avg acc: 87.0% - val-roc: 0.8827 - val-ap: 0.8696 (0.1s/epoch)
+Epoch  80/200:Epoch loss: 0.0304 - avg acc: 88.5% - val-roc: 0.8827 - val-ap: 0.8696 (0.1s/epoch)
+Epoch  81/200:Epoch loss: 0.0387 - avg acc: 90.1% - val-roc: 0.8878 - val-ap: 0.8726 (0.2s/epoch)
+Epoch  82/200:Epoch loss: 0.0263 - avg acc: 90.8% - val-roc: 0.8776 - val-ap: 0.8670 (0.1s/epoch)
+Epoch  83/200:Epoch loss: 0.0204 - avg acc: 90.1% - val-roc: 0.8878 - val-ap: 0.8737 (0.1s/epoch)
+Epoch  84/200:Epoch loss: 0.0411 - avg acc: 90.8% - val-roc: 0.8827 - val-ap: 0.8696 (0.1s/epoch)
+Epoch  85/200:Epoch loss: 0.0329 - avg acc: 90.8% - val-roc: 0.8827 - val-ap: 0.8711 (0.1s/epoch)
+Epoch  86/200:Epoch loss: 0.0386 - avg acc: 91.6% - val-roc: 0.8827 - val-ap: 0.8711 (0.2s/epoch)
+Epoch  87/200:Epoch loss: 0.0520 - avg acc: 91.6% - val-roc: 0.8929 - val-ap: 0.8766 (0.2s/epoch)
+Epoch  88/200:Epoch loss: 0.0240 - avg acc: 90.1% - val-roc: 0.9082 - val-ap: 0.8951 (0.1s/epoch)
+Epoch  89/200:Epoch loss: 0.0224 - avg acc: 90.1% - val-roc: 0.9031 - val-ap: 0.8832 (0.2s/epoch)
+Epoch  90/200:Epoch loss: 0.0585 - avg acc: 90.1% - val-roc: 0.9031 - val-ap: 0.8832 (0.1s/epoch)
+Epoch  91/200:Epoch loss: 0.0255 - avg acc: 90.1% - val-roc: 0.8980 - val-ap: 0.8793 (0.1s/epoch)
+Epoch  92/200:Epoch loss: 0.0253 - avg acc: 90.8% - val-roc: 0.8980 - val-ap: 0.8763 (0.1s/epoch)
+Epoch  93/200:Epoch loss: 0.0780 - avg acc: 90.8% - val-roc: 0.8827 - val-ap: 0.8606 (0.1s/epoch)
+Epoch  94/200:Epoch loss: 0.0135 - avg acc: 90.8% - val-roc: 0.8724 - val-ap: 0.8529 (0.2s/epoch)
+Epoch  95/200:Epoch loss: 0.0269 - avg acc: 91.6% - val-roc: 0.8673 - val-ap: 0.8458 (0.1s/epoch)
+Epoch  96/200:Epoch loss: 0.0454 - avg acc: 92.4% - val-roc: 0.8724 - val-ap: 0.8543 (0.1s/epoch)
+Epoch  97/200:Epoch loss: 0.0126 - avg acc: 93.9% - val-roc: 0.8724 - val-ap: 0.8543 (0.1s/epoch)
+Epoch  98/200:Epoch loss: 0.0169 - avg acc: 93.9% - val-roc: 0.8673 - val-ap: 0.8517 (0.1s/epoch)
+Epoch  99/200:Epoch loss: 0.0254 - avg acc: 93.9% - val-roc: 0.8571 - val-ap: 0.8438 (0.1s/epoch)
+Epoch  100/200:Epoch loss: 0.0154 - avg acc: 94.7% - val-roc: 0.8622 - val-ap: 0.8481 (0.2s/epoch)
+Epoch  101/200:Epoch loss: 0.0211 - avg acc: 94.7% - val-roc: 0.8622 - val-ap: 0.8481 (0.1s/epoch)
+Epoch  102/200:Epoch loss: 0.0142 - avg acc: 95.4% - val-roc: 0.8622 - val-ap: 0.8415 (0.1s/epoch)
+Epoch  103/200:Epoch loss: 0.0343 - avg acc: 94.7% - val-roc: 0.8673 - val-ap: 0.8400 (0.1s/epoch)
+Epoch  104/200:Epoch loss: 0.0085 - avg acc: 93.9% - val-roc: 0.8520 - val-ap: 0.8249 (0.1s/epoch)
+Epoch  105/200:Epoch loss: 0.0303 - avg acc: 92.4% - val-roc: 0.8673 - val-ap: 0.8344 (0.1s/epoch)
+Epoch  106/200:Epoch loss: 0.0153 - avg acc: 93.1% - val-roc: 0.8673 - val-ap: 0.8344 (0.1s/epoch)
+Epoch  107/200:Epoch loss: 0.0279 - avg acc: 93.9% - val-roc: 0.8673 - val-ap: 0.8344 (0.1s/epoch)
+Epoch  108/200:Epoch loss: 0.0131 - avg acc: 93.1% - val-roc: 0.8673 - val-ap: 0.8344 (0.1s/epoch)
+Epoch  109/200:Epoch loss: 0.0053 - avg acc: 93.1% - val-roc: 0.8776 - val-ap: 0.8464 (0.1s/epoch)
+Epoch  110/200:Epoch loss: 0.0144 - avg acc: 93.9% - val-roc: 0.8776 - val-ap: 0.8464 (0.2s/epoch)
+Epoch  111/200:Epoch loss: 0.0063 - avg acc: 94.7% - val-roc: 0.8673 - val-ap: 0.8335 (0.1s/epoch)
+Epoch  112/200:Epoch loss: 0.0169 - avg acc: 93.9% - val-roc: 0.8673 - val-ap: 0.8283 (0.2s/epoch)
+Epoch  113/200:Epoch loss: 0.0164 - avg acc: 93.1% - val-roc: 0.8673 - val-ap: 0.8283 (0.1s/epoch)
+Epoch  114/200:Epoch loss: 0.0258 - avg acc: 94.7% - val-roc: 0.8724 - val-ap: 0.8379 (0.1s/epoch)
+Epoch  115/200:Epoch loss: 0.0053 - avg acc: 94.7% - val-roc: 0.8673 - val-ap: 0.8344 (0.2s/epoch)
+Epoch  116/200:Epoch loss: 0.0048 - avg acc: 96.2% - val-roc: 0.8673 - val-ap: 0.8344 (0.2s/epoch)
+Epoch  117/200:Epoch loss: 0.0114 - avg acc: 96.9% - val-roc: 0.8622 - val-ap: 0.8309 (0.1s/epoch)
+Epoch  118/200:Epoch loss: 0.0141 - avg acc: 97.7% - val-roc: 0.8571 - val-ap: 0.8213 (0.1s/epoch)
+Epoch  119/200:Epoch loss: 0.0111 - avg acc: 96.9% - val-roc: 0.8571 - val-ap: 0.8213 (0.1s/epoch)
+Epoch  120/200:Epoch loss: 0.0118 - avg acc: 96.9% - val-roc: 0.8622 - val-ap: 0.8309 (0.1s/epoch)
+Epoch  121/200:Epoch loss: 0.0071 - avg acc: 96.2% - val-roc: 0.8622 - val-ap: 0.8309 (0.2s/epoch)
+Epoch  122/200:Epoch loss: 0.0080 - avg acc: 96.2% - val-roc: 0.8673 - val-ap: 0.8507 (0.1s/epoch)
+Epoch  123/200:Epoch loss: 0.0166 - avg acc: 93.9% - val-roc: 0.8827 - val-ap: 0.8649 (0.2s/epoch)
+Epoch  124/200:Epoch loss: 0.0119 - avg acc: 93.9% - val-roc: 0.8878 - val-ap: 0.8683 (0.1s/epoch)
+Epoch  125/200:Epoch loss: 0.0115 - avg acc: 93.9% - val-roc: 0.8980 - val-ap: 0.8785 (0.1s/epoch)
+Epoch  126/200:Epoch loss: 0.0236 - avg acc: 94.7% - val-roc: 0.8980 - val-ap: 0.8756 (0.1s/epoch)
+Epoch  127/200:Epoch loss: 0.0164 - avg acc: 95.4% - val-roc: 0.8980 - val-ap: 0.8843 (0.1s/epoch)
+Epoch  128/200:Epoch loss: 0.0138 - avg acc: 96.2% - val-roc: 0.8980 - val-ap: 0.8843 (0.1s/epoch)
+Epoch  129/200:Epoch loss: 0.0053 - avg acc: 96.2% - val-roc: 0.8929 - val-ap: 0.8814 (0.2s/epoch)
+Epoch  130/200:Epoch loss: 0.0055 - avg acc: 96.2% - val-roc: 0.8929 - val-ap: 0.8814 (0.1s/epoch)
+Epoch  131/200:Epoch loss: 0.0133 - avg acc: 96.2% - val-roc: 0.8929 - val-ap: 0.8814 (0.1s/epoch)
+Epoch  132/200:Epoch loss: 0.0093 - avg acc: 96.9% - val-roc: 0.8827 - val-ap: 0.8749 (0.1s/epoch)
+Epoch  133/200:Epoch loss: 0.0099 - avg acc: 97.7% - val-roc: 0.8776 - val-ap: 0.8673 (0.1s/epoch)
+Epoch  134/200:Epoch loss: 0.0272 - avg acc: 96.9% - val-roc: 0.8776 - val-ap: 0.8695 (0.2s/epoch)
+Epoch  135/200:Epoch loss: 0.0057 - avg acc: 97.7% - val-roc: 0.8724 - val-ap: 0.8650 (0.1s/epoch)
+Epoch  136/200:Epoch loss: 0.0075 - avg acc: 97.7% - val-roc: 0.8776 - val-ap: 0.8662 (0.1s/epoch)
+Epoch  137/200:Epoch loss: 0.0014 - avg acc: 97.7% - val-roc: 0.8776 - val-ap: 0.8662 (0.1s/epoch)
+Epoch  138/200:Epoch loss: 0.0549 - avg acc: 97.7% - val-roc: 0.8980 - val-ap: 0.8852 (0.1s/epoch)
+Epoch  139/200:Epoch loss: 0.0054 - avg acc: 96.9% - val-roc: 0.8929 - val-ap: 0.8814 (0.1s/epoch)
+Epoch  140/200:Epoch loss: 0.0057 - avg acc: 96.9% - val-roc: 0.8878 - val-ap: 0.8773 (0.1s/epoch)
+Epoch  141/200:Epoch loss: 0.0154 - avg acc: 97.7% - val-roc: 0.8827 - val-ap: 0.8703 (0.1s/epoch)
+Epoch  142/200:Epoch loss: 0.0053 - avg acc: 98.5% - val-roc: 0.8776 - val-ap: 0.8662 (0.2s/epoch)
+Epoch  143/200:Epoch loss: 0.0063 - avg acc: 98.5% - val-roc: 0.8776 - val-ap: 0.8662 (0.2s/epoch)
+Epoch  144/200:Epoch loss: 0.0134 - avg acc: 99.2% - val-roc: 0.8776 - val-ap: 0.8662 (0.2s/epoch)
+Epoch  145/200:Epoch loss: 0.0041 - avg acc: 100.0% - val-roc: 0.8776 - val-ap: 0.8662 (0.2s/epoch)
+Epoch  146/200:Epoch loss: 0.0113 - avg acc: 100.0% - val-roc: 0.8724 - val-ap: 0.8619 (0.1s/epoch)
+Epoch  147/200:Epoch loss: 0.0092 - avg acc: 100.0% - val-roc: 0.8776 - val-ap: 0.8662 (0.1s/epoch)
+Epoch  148/200:Epoch loss: 0.0070 - avg acc: 100.0% - val-roc: 0.8724 - val-ap: 0.8626 (0.1s/epoch)
+Epoch  149/200:Epoch loss: 0.0064 - avg acc: 100.0% - val-roc: 0.8673 - val-ap: 0.8600 (0.1s/epoch)
+Epoch  150/200:Epoch loss: 0.0022 - avg acc: 100.0% - val-roc: 0.8724 - val-ap: 0.8626 (0.1s/epoch)
+Epoch  151/200:Epoch loss: 0.0045 - avg acc: 100.0% - val-roc: 0.8724 - val-ap: 0.8626 (0.1s/epoch)
+Epoch  152/200:Epoch loss: 0.0055 - avg acc: 100.0% - val-roc: 0.8673 - val-ap: 0.8596 (0.1s/epoch)
+Epoch  153/200:Epoch loss: 0.0035 - avg acc: 100.0% - val-roc: 0.8673 - val-ap: 0.8596 (0.1s/epoch)
+Epoch  154/200:Epoch loss: 0.0074 - avg acc: 100.0% - val-roc: 0.8673 - val-ap: 0.8513 (0.2s/epoch)
+Epoch  155/200:Epoch loss: 0.0055 - avg acc: 100.0% - val-roc: 0.8673 - val-ap: 0.8513 (0.2s/epoch)
+Epoch  156/200:Epoch loss: 0.0040 - avg acc: 100.0% - val-roc: 0.8724 - val-ap: 0.8554 (0.2s/epoch)
+Epoch  157/200:Epoch loss: 0.0067 - avg acc: 100.0% - val-roc: 0.8776 - val-ap: 0.8708 (0.2s/epoch)
+Epoch  158/200:Epoch loss: 0.0032 - avg acc: 100.0% - val-roc: 0.8673 - val-ap: 0.8596 (0.2s/epoch)
+Epoch  159/200:Epoch loss: 0.0027 - avg acc: 100.0% - val-roc: 0.8673 - val-ap: 0.8596 (0.1s/epoch)
+Epoch  160/200:Epoch loss: 0.0021 - avg acc: 100.0% - val-roc: 0.8673 - val-ap: 0.8596 (0.1s/epoch)
+Epoch  161/200:Epoch loss: 0.0096 - avg acc: 100.0% - val-roc: 0.8673 - val-ap: 0.8596 (0.2s/epoch)
+Epoch  162/200:Epoch loss: 0.0036 - avg acc: 100.0% - val-roc: 0.8776 - val-ap: 0.8673 (0.2s/epoch)
+Epoch  163/200:Epoch loss: 0.0114 - avg acc: 100.0% - val-roc: 0.8673 - val-ap: 0.8596 (0.1s/epoch)
+Epoch  164/200:Epoch loss: 0.0059 - avg acc: 100.0% - val-roc: 0.8724 - val-ap: 0.8632 (0.2s/epoch)
+Epoch  165/200:Epoch loss: 0.0044 - avg acc: 100.0% - val-roc: 0.8827 - val-ap: 0.8703 (0.2s/epoch)
+Epoch  166/200:Epoch loss: 0.0016 - avg acc: 100.0% - val-roc: 0.8827 - val-ap: 0.8703 (0.2s/epoch)
+Epoch  167/200:Epoch loss: 0.0060 - avg acc: 100.0% - val-roc: 0.8827 - val-ap: 0.8703 (0.2s/epoch)
+Epoch  168/200:Epoch loss: 0.0179 - avg acc: 100.0% - val-roc: 0.8827 - val-ap: 0.8703 (0.2s/epoch)
+Epoch  169/200:Epoch loss: 0.0016 - avg acc: 100.0% - val-roc: 0.8827 - val-ap: 0.8703 (0.2s/epoch)
+Epoch  170/200:Epoch loss: 0.0103 - avg acc: 99.2% - val-roc: 0.8878 - val-ap: 0.8779 (0.2s/epoch)
+Epoch  171/200:Epoch loss: 0.0135 - avg acc: 99.2% - val-roc: 0.8827 - val-ap: 0.8739 (0.2s/epoch)
+Epoch  172/200:Epoch loss: 0.0105 - avg acc: 99.2% - val-roc: 0.8776 - val-ap: 0.8662 (0.2s/epoch)
+Epoch  173/200:Epoch loss: 0.0017 - avg acc: 99.2% - val-roc: 0.8724 - val-ap: 0.8534 (0.2s/epoch)
+Epoch  174/200:Epoch loss: 0.0020 - avg acc: 99.2% - val-roc: 0.8776 - val-ap: 0.8577 (0.2s/epoch)
+Epoch  175/200:Epoch loss: 0.0020 - avg acc: 99.2% - val-roc: 0.8724 - val-ap: 0.8534 (0.2s/epoch)
+Epoch  176/200:Epoch loss: 0.0034 - avg acc: 99.2% - val-roc: 0.8776 - val-ap: 0.8577 (0.2s/epoch)
+Epoch  177/200:Epoch loss: 0.0012 - avg acc: 99.2% - val-roc: 0.8776 - val-ap: 0.8577 (0.2s/epoch)
+Epoch  178/200:Epoch loss: 0.0024 - avg acc: 99.2% - val-roc: 0.8724 - val-ap: 0.8534 (0.2s/epoch)
+Epoch  179/200:Epoch loss: 0.0052 - avg acc: 100.0% - val-roc: 0.8673 - val-ap: 0.8500 (0.2s/epoch)
+Epoch  180/200:Epoch loss: 0.0011 - avg acc: 100.0% - val-roc: 0.8622 - val-ap: 0.8464 (0.2s/epoch)
+Epoch  181/200:Epoch loss: 0.0075 - avg acc: 100.0% - val-roc: 0.8673 - val-ap: 0.8508 (0.2s/epoch)
+Epoch  182/200:Epoch loss: 0.0020 - avg acc: 100.0% - val-roc: 0.8724 - val-ap: 0.8551 (0.2s/epoch)
+Epoch  183/200:Epoch loss: 0.0009 - avg acc: 100.0% - val-roc: 0.8673 - val-ap: 0.8508 (0.2s/epoch)
+Epoch  184/200:Epoch loss: 0.0163 - avg acc: 100.0% - val-roc: 0.8673 - val-ap: 0.8508 (0.2s/epoch)
+Epoch  185/200:Epoch loss: 0.0012 - avg acc: 100.0% - val-roc: 0.8622 - val-ap: 0.8462 (0.2s/epoch)
+Epoch  186/200:Epoch loss: 0.0066 - avg acc: 100.0% - val-roc: 0.8673 - val-ap: 0.8538 (0.2s/epoch)
+Epoch  187/200:Epoch loss: 0.0015 - avg acc: 100.0% - val-roc: 0.8673 - val-ap: 0.8538 (0.2s/epoch)
+Epoch  188/200:Epoch loss: 0.0047 - avg acc: 100.0% - val-roc: 0.8571 - val-ap: 0.8469 (0.2s/epoch)
+Epoch  189/200:Epoch loss: 0.0067 - avg acc: 100.0% - val-roc: 0.8571 - val-ap: 0.8469 (0.2s/epoch)
+Epoch  190/200:Epoch loss: 0.0039 - avg acc: 100.0% - val-roc: 0.8673 - val-ap: 0.8633 (0.2s/epoch)
+Epoch  191/200:Epoch loss: 0.0033 - avg acc: 100.0% - val-roc: 0.8673 - val-ap: 0.8633 (0.2s/epoch)
+Epoch  192/200:Epoch loss: 0.0013 - avg acc: 100.0% - val-roc: 0.8622 - val-ap: 0.8514 (0.2s/epoch)
+Epoch  193/200:Epoch loss: 0.0013 - avg acc: 100.0% - val-roc: 0.8724 - val-ap: 0.8584 (0.2s/epoch)
+Epoch  194/200:Epoch loss: 0.0033 - avg acc: 100.0% - val-roc: 0.8520 - val-ap: 0.8431 (0.2s/epoch)
+Epoch  195/200:Epoch loss: 0.0023 - avg acc: 100.0% - val-roc: 0.8622 - val-ap: 0.8503 (0.2s/epoch)
+Epoch  196/200:Epoch loss: 0.0016 - avg acc: 100.0% - val-roc: 0.8673 - val-ap: 0.8541 (0.2s/epoch)
+Epoch  197/200:Epoch loss: 0.0054 - avg acc: 100.0% - val-roc: 0.8673 - val-ap: 0.8541 (0.2s/epoch)
+Epoch  198/200:Epoch loss: 0.0017 - avg acc: 100.0% - val-roc: 0.8622 - val-ap: 0.8503 (0.2s/epoch)
+Epoch  199/200:Epoch loss: 0.0064 - avg acc: 100.0% - val-roc: 0.8724 - val-ap: 0.8584 (0.2s/epoch)
+Epoch  200/200:Epoch loss: 0.0014 - avg acc: 100.0% - val-roc: 0.8673 - val-ap: 0.8541 (0.2s/epoch)
+Done!
+Test ROC: 0.9111 - Test AP: 0.9649
+</pre></div>
+</div>
+<div class="output text_html">Waiting for W&B process to finish... <strong style="color:green">(success).</strong></div><script type="application/vnd.jupyter.widget-view+json">{"model_id": "5caab48f036b4dd0becfa9efd257d27c", "version_major": 2, "version_minor": 0}</script><div class="output text_html"><style>
+    table.wandb td:nth-child(1) { padding: 0 10px; text-align: left ; width: auto;} td:nth-child(2) {text-align: left ; width: 100%}
+    .wandb-row { display: flex; flex-direction: row; flex-wrap: wrap; justify-content: flex-start; width: 100% }
+    .wandb-col { display: flex; flex-direction: column; flex-basis: 100%; flex: 1; padding: 10px; }
+    </style>
+<div class="wandb-row"><div class="wandb-col"><h3>Run history:</h3><br/><table class="wandb"><tr><td>epoch_loss</td><td>█▅▄▄▃▃▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁</td></tr><tr><td>test/test_ap</td><td>▁</td></tr><tr><td>test/test_roc</td><td>▁</td></tr><tr><td>train_acc</td><td>▁▁▂▂▂▂▃▃▃▄▅▅▆▆▇▇▇▇▇▇█▇▇█████████████████</td></tr><tr><td>train_loss</td><td>▅▇█▅▅▄▂▅▂▁▂▃▂▂▃▂▁▁▁▁▁▁▁▁▁▁▁▆▁▁▁▁▁▁▂▁▁▁▁▁</td></tr><tr><td>val/val_ap</td><td>▇▅▄▃▁▃▄▆▇▇█▇▇▇█▇▆█▇▅▅▄▄▃▅▇▆▇▆▆▅▆▆▆▆▅▅▅▅▅</td></tr><tr><td>val/val_roc</td><td>▄▁▂▂▁▂▄▆▇▇██▇▇█▇▆█▇▆▅▆▆▅▆▇▆▇▆▆▆▆▆▇▆▆▆▅▅▆</td></tr></table><br/></div><div class="wandb-col"><h3>Run summary:</h3><br/><table class="wandb"><tr><td>epoch_loss</td><td>0.00144</td></tr><tr><td>test/test_ap</td><td>0.96487</td></tr><tr><td>test/test_roc</td><td>0.91111</td></tr><tr><td>train_acc</td><td>100.0</td></tr><tr><td>train_loss</td><td>0.00284</td></tr><tr><td>val/val_ap</td><td>0.85407</td></tr><tr><td>val/val_roc</td><td>0.86735</td></tr></table><br/></div></div></div><div class="output text_html"> View run <strong style="color:#cdcd00">fallen-puddle-75</strong> at: <a href='https://wandb.ai/c-achard/DL%20Biomed%20Homework%202%20-%20v3/runs/l2wi27pw' target="_blank">https://wandb.ai/c-achard/DL%20Biomed%20Homework%202%20-%20v3/runs/l2wi27pw</a><br/> View job at <a href='https://wandb.ai/c-achard/DL%20Biomed%20Homework%202%20-%20v3/jobs/QXJ0aWZhY3RDb2xsZWN0aW9uOjEwODU5OTAyOQ==/version_details/v4' target="_blank">https://wandb.ai/c-achard/DL%20Biomed%20Homework%202%20-%20v3/jobs/QXJ0aWZhY3RDb2xsZWN0aW9uOjEwODU5OTAyOQ==/version_details/v4</a><br/>Synced 6 W&B file(s), 1 media file(s), 1 artifact file(s) and 0 other file(s)</div><div class="output text_html">Find logs at: <code>.\wandb\run-20231021_162025-l2wi27pw\logs</code></div></div>
+</div>
+</section>
+<section id="plots-of-training-history">
+<h3>Plots of training history<a class="headerlink" href="#plots-of-training-history" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">utils</span><span class="o">.</span><span class="n">plot_history</span><span class="p">(</span><span class="n">history</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/aaacb910b3da52d457af90e3724ec68c7d3f045e89b6d5efba5f42a03e188ecf.png" src="../_images/aaacb910b3da52d457af90e3724ec68c7d3f045e89b6d5efba5f42a03e188ecf.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="validation-on-unseen-data">
+<h2>Validation on unseen data<a class="headerlink" href="#validation-on-unseen-data" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">test_roc</span><span class="p">,</span> <span class="n">test_ap</span><span class="p">,</span> <span class="n">preds</span><span class="p">,</span> <span class="n">ys</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">test</span><span class="p">(</span>
+    <span class="n">dataloaders</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">dataset</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">return_preds</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Test ROC-AUC: </span><span class="si">{</span><span class="n">test_roc</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Test AP: </span><span class="si">{</span><span class="n">test_ap</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Plot the ROC curve</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">plot_roc_curve</span><span class="p">(</span><span class="n">dataloaders</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">dataset</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">&quot;Number of correct positive predictions on test set: </span><span class="si">{</span><span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">preds</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">0.5</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="n">ys</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span><span class="si">}</span><span class="s2"> out of </span><span class="si">{</span><span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">ys</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">&quot;Number of correct negative predictions on test set: </span><span class="si">{</span><span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">preds</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">0.5</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="n">ys</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">))</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span><span class="si">}</span><span class="s2"> out of </span><span class="si">{</span><span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">ys</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Test ROC-AUC: 0.9111
+Test AP: 0.9649
+</pre></div>
+</div>
+<img alt="../_images/c8d32d1aed38e3790e1328c74072ad8cf0e21885c8d73fdfe9bff06213f43dbd.png" src="../_images/c8d32d1aed38e3790e1328c74072ad8cf0e21885c8d73fdfe9bff06213f43dbd.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of correct positive predictions on test set: 17 out of 20
+Number of correct negative predictions on test set: 6 out of 9
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="full-dataset-performance">
+<h2>Full dataset performance<a class="headerlink" href="#full-dataset-performance" title="Permalink to this heading">#</a></h2>
+<p>We now check how the model performs overall on the whole dataset.
+We also check which molecules are not properly labeled, as well as the distribution of predictions to get a sense of the model’s (un)certainty.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_all</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">create_dataset_dict</span><span class="p">(</span><span class="n">add_edge_features</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">full_dataset</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">MutagDataset</span><span class="p">(</span><span class="n">data_all</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="full-roc-curve">
+<h3>Full ROC curve<a class="headerlink" href="#full-roc-curve" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">full_roc</span><span class="p">,</span> <span class="n">full_ap</span><span class="p">,</span> <span class="n">preds</span><span class="p">,</span> <span class="n">ys</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">test</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">return_preds</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Full ROC-AUC: </span><span class="si">{</span><span class="n">full_roc</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Full AP: </span><span class="si">{</span><span class="n">full_ap</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Plot the ROC curve</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">plot_roc_curve</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
+
+<span class="n">preds</span> <span class="o">=</span> <span class="n">preds</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+<span class="n">ys</span> <span class="o">=</span> <span class="n">ys</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">&quot;Number of correct positive predictions on test set: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">preds</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">0.5</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="n">ys</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">))</span><span class="si">}</span><span class="s2"> out of </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">ys</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">&quot;Number of correct negative predictions on test set: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">preds</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">0.5</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="n">ys</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">))</span><span class="si">}</span><span class="s2"> out of </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">ys</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full ROC-AUC: 0.9792
+Full AP: 0.9878
+</pre></div>
+</div>
+<img alt="../_images/86570c12d41e49bb18b410b0bc2fe1f78a753fafe10b676b25d9ab0cabb805a2.png" src="../_images/86570c12d41e49bb18b410b0bc2fe1f78a753fafe10b676b25d9ab0cabb805a2.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of correct positive predictions on test set: 117 out of 125
+Number of correct negative predictions on test set: 58 out of 63
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="predictions-distribution">
+<h3>Predictions distribution<a class="headerlink" href="#predictions-distribution" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">utils</span><span class="o">.</span><span class="n">show_preds_distribution</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">ys</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/06cc562af13c349f467856480e9ae06022f8c8bffae5f66fc01bbb57a82a6472.png" src="../_images/06cc562af13c349f467856480e9ae06022f8c8bffae5f66fc01bbb57a82a6472.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>This plot shows the distribution of the labels and predictions; predictions are overlayed on top of the labels, showing whether they are missing or surnumerous.
+The labels are 125 positive and 63 negative.
+The predictions are 122 positive and 66 negative.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="confusion-matrix">
+<h3>Confusion matrix<a class="headerlink" href="#confusion-matrix" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">utils</span><span class="o">.</span><span class="n">plot_confusion_matrix</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">ys</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/0e91b02316abe892db017d24a207669a8f984e1d3ef7a3aa7c42699ab828a9f7.png" src="../_images/0e91b02316abe892db017d24a207669a8f984e1d3ef7a3aa7c42699ab828a9f7.png" />
+</div>
+</div>
+</section>
+<section id="check-mislabelled-molecules">
+<h3>Check mislabelled molecules<a class="headerlink" href="#check-mislabelled-molecules" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mislabeled</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">find_mislabeled_molecules</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">ys</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">mislabeled</span><span class="p">)</span><span class="si">}</span><span class="s2"> mislabeled molecules&quot;</span><span class="p">)</span>
+<span class="n">mols</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">id_mol</span> <span class="ow">in</span> <span class="n">mislabeled</span><span class="p">:</span>
+    <span class="n">mols</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">full_dataset</span><span class="p">[</span><span class="n">id_mol</span><span class="p">])</span>
+
+<span class="n">thresh_preds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">preds</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)[</span><span class="n">mislabeled</span><span class="p">]</span>
+<span class="n">utils</span><span class="o">.</span><span class="n">draw_molecule_from_dict</span><span class="p">(</span>
+    <span class="n">mols</span><span class="p">[:</span><span class="mi">12</span><span class="p">],</span>
+    <span class="n">preds</span><span class="o">=</span><span class="n">thresh_preds</span><span class="p">,</span>
+    <span class="n">mol_ids</span><span class="o">=</span><span class="n">mislabeled</span><span class="p">,</span>
+    <span class="n">n_cols</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+    <span class="n">n_rows</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>13 mislabeled molecules
+</pre></div>
+</div>
+<img alt="../_images/0a049e3a9623b5797cab8fef2e0ed33690a68323dd994b3f4418330e6bc198b9.png" src="../_images/0a049e3a9623b5797cab8fef2e0ed33690a68323dd994b3f4418330e6bc198b9.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./rendered_notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="AttentionGCN.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Attention GCN</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#edge-enhanced-attention-gnn-definition">Edge-Enhanced Attention GNN definition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#validating-our-model">Validating our model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#training">Training</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model">Model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#training-parameters">Training parameters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#training-loop">Training loop</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plots-of-training-history">Plots of training history</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-on-unseen-data">Validation on unseen data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#full-dataset-performance">Full dataset performance</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#full-roc-curve">Full ROC curve</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#predictions-distribution">Predictions distribution</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#confusion-matrix">Confusion matrix</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-mislabelled-molecules">Check mislabelled molecules</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Cyril Achard
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=c5ced968eda925caa686"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
