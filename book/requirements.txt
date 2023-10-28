@@ -1,0 +1,9 @@
+jupyter-book
+matplotlib
+numpy
+seaborn
+wandb
+torch
+scikit-learn
+datasets
+networkx

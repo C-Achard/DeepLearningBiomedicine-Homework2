@@ -1,0 +1,24 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: intro
+# options:
+  # numbered: true
+parts:
+- caption: Dataset & preprocessing
+  chapters:
+  - file: rendered_notebooks/Dataset
+- caption: Hyperparameter tuning
+  chapters:
+  - file: wandb_comparisons/GCN_comparison.md
+  - file: wandb_comparisons/SAGE_comparison.md
+  - file: wandb_comparisons/AttGCN_comparison.md
+  - file: wandb_comparisons/EdgeAttGCN_comparison.md
+  - file: wandb_comparisons/best_runs.md
+- caption: Best models notebooks
+  chapters:
+  - file: rendered_notebooks/GCN
+  - file: rendered_notebooks/SAGE
+  - file: rendered_notebooks/AttentionGCN
+  - file: rendered_notebooks/EdgeAttentionGCN
