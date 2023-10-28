@@ -8,17 +8,14 @@ Deep learning homework on graph classification
 The project directory is structured as follows:
 
 * [WEBSITE](https://c-achard.github.io/DeepLearningBiomedicine-Homework2/intro.html) : The built **Jupyter Book**, containing the notebooks and analysis
-* report : contains the **PDF report**
-* book_src : Contains the Jupyter Book source data and all notebooks/code
-  * code : **Source code** of the project as .py files
+* `report` : contains the **PDF report**
+* `book` : Contains the Jupyter Book source data and all notebooks/code
+  * `code` : **Source code** of the project as .py files
     * `model.py` : Contains the models code (layers, heads, aggregators, etc.)
     * `training.py` : Contains the training code (training loop, evaluation, etc.)
     * `utils.py` : Contains data-loading/pre-processing and plotting utilities
-  * rendered_notebooks : Rendered **notebooks** of best runs\
-    (See {ref}`section:gcn`)
-  * wandb_comparisons : HTML reports of the **hyperparameter tuning**\
-    (See {ref}`section:tuning`)
-  * images : Images used in the book and report
+  * `rendered_notebooks` : Rendered **notebooks** of best runs
+  * `wandb_comparisons` : HTML reports of the **hyperparameter tuning**
 
 ## Jupyter Book structure
 
