@@ -156,3 +156,4 @@ book/rendered_notebooks/wandb
 book/wandb
 book/data/*
 book/code/data/*
+book/rendered_notebooks/data/mutag.pickle
