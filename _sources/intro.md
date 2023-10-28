@@ -25,7 +25,7 @@ If you encounter any problem, please use the provided links to access the report
 
 The project directory is structured as follows:
 
-* BOOK : The built **Jupyter Book**, containing the notebooks and analysis
+* [WEBSITE](https://c-achard.github.io/DeepLearningBiomedicine-Homework2/intro.html) : The built **Jupyter Book**, containing the notebooks and analysis
 * report : contains the **PDF report**
 * book_src : Contains the Jupyter Book source data and all notebooks/code
   * code : **Source code** of the project as .py files
