@@ -453,7 +453,7 @@ document.write(`
 <span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
 <span class="c1"># logger.setLevel(logging.DEBUG)</span>
 
-<span class="c1"># t.WANDB_MODE = &quot;disabled&quot;</span>
+<span class="n">t</span><span class="o">.</span><span class="n">WANDB_MODE</span> <span class="o">=</span> <span class="s2">&quot;disabled&quot;</span>
 
 <span class="n">DEVICE</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cuda:0&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
 </pre></div>
@@ -597,10 +597,8 @@ and use Adam as the optimizer.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Bold -Color-Bold-Blue">wandb</span>: Currently logged in as: <span class=" -Color -Color-Yellow">c-achard</span>. Use <span class=" -Color -Color-Bold">`wandb login --relogin`</span> to force relogin
-</pre></div>
-</div>
-<div class="output text_html">Tracking run with wandb version 0.15.12</div><div class="output text_html">Run data is saved locally in <code>c:\Users\Cyril\Desktop\Code\Deep-Learning-Biomed\Homework_2\book\rendered_notebooks\wandb\run-20231021_183918-4465lp3o</code></div><div class="output text_html">Syncing run <strong><a href='https://wandb.ai/c-achard/DL%20Biomed%20Homework%202%20-%20v3/runs/4465lp3o' target="_blank">fiery-water-81</a></strong> to <a href='https://wandb.ai/c-achard/DL%20Biomed%20Homework%202%20-%20v3' target="_blank">Weights & Biases</a> (<a href='https://wandb.me/run' target="_blank">docs</a>)<br/></div><div class="output text_html"> View project at <a href='https://wandb.ai/c-achard/DL%20Biomed%20Homework%202%20-%20v3' target="_blank">https://wandb.ai/c-achard/DL%20Biomed%20Homework%202%20-%20v3</a></div><div class="output text_html"> View run at <a href='https://wandb.ai/c-achard/DL%20Biomed%20Homework%202%20-%20v3/runs/4465lp3o' target="_blank">https://wandb.ai/c-achard/DL%20Biomed%20Homework%202%20-%20v3/runs/4465lp3o</a></div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch   1/1000:Epoch loss: 0.7356 - avg acc: 30.5% - val-roc: 0.7041 - val-ap: 0.6378 (0.3s/epoch)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Watching
+Epoch   1/1000:Epoch loss: 0.7356 - avg acc: 30.5% - val-roc: 0.7041 - val-ap: 0.6378 (0.7s/epoch)
 Epoch   2/1000:Epoch loss: 0.6209 - avg acc: 32.1% - val-roc: 0.8622 - val-ap: 0.9041 (0.1s/epoch)
 Epoch   3/1000:Epoch loss: 0.5704 - avg acc: 33.6% - val-roc: 0.8265 - val-ap: 0.8750 (0.1s/epoch)
 Epoch   4/1000:Epoch loss: 0.5038 - avg acc: 32.8% - val-roc: 0.7908 - val-ap: 0.8544 (0.1s/epoch)
@@ -609,7 +607,7 @@ Epoch   6/1000:Epoch loss: 0.5733 - avg acc: 32.8% - val-roc: 0.7194 - val-ap: 0
 Epoch   7/1000:Epoch loss: 0.5114 - avg acc: 32.8% - val-roc: 0.7245 - val-ap: 0.6958 (0.1s/epoch)
 Epoch   8/1000:Epoch loss: 0.4970 - avg acc: 31.3% - val-roc: 0.7347 - val-ap: 0.7392 (0.1s/epoch)
 Epoch   9/1000:Epoch loss: 0.4883 - avg acc: 31.3% - val-roc: 0.6173 - val-ap: 0.5557 (0.1s/epoch)
-Epoch  10/1000:Epoch loss: 0.5239 - avg acc: 32.8% - val-roc: 0.6122 - val-ap: 0.5539 (0.1s/epoch)
+Epoch  10/1000:Epoch loss: 0.5239 - avg acc: 32.8% - val-roc: 0.6122 - val-ap: 0.5539 (0.2s/epoch)
 Epoch  11/1000:Epoch loss: 0.4593 - avg acc: 31.3% - val-roc: 0.6020 - val-ap: 0.5393 (0.1s/epoch)
 Epoch  12/1000:Epoch loss: 0.4926 - avg acc: 35.9% - val-roc: 0.6020 - val-ap: 0.5440 (0.1s/epoch)
 Epoch  13/1000:Epoch loss: 0.5245 - avg acc: 31.3% - val-roc: 0.5969 - val-ap: 0.5410 (0.1s/epoch)
@@ -642,7 +640,7 @@ Epoch  39/1000:Epoch loss: 0.5063 - avg acc: 33.6% - val-roc: 0.5918 - val-ap: 0
 Epoch  40/1000:Epoch loss: 0.4590 - avg acc: 32.1% - val-roc: 0.5714 - val-ap: 0.5252 (0.1s/epoch)
 Epoch  41/1000:Epoch loss: 0.4190 - avg acc: 33.6% - val-roc: 0.5867 - val-ap: 0.5301 (0.1s/epoch)
 Epoch  42/1000:Epoch loss: 0.4441 - avg acc: 32.1% - val-roc: 0.5561 - val-ap: 0.5064 (0.1s/epoch)
-Epoch  43/1000:Epoch loss: 0.4563 - avg acc: 32.8% - val-roc: 0.5969 - val-ap: 0.5372 (0.2s/epoch)
+Epoch  43/1000:Epoch loss: 0.4563 - avg acc: 32.8% - val-roc: 0.5969 - val-ap: 0.5372 (0.1s/epoch)
 Epoch  44/1000:Epoch loss: 0.4446 - avg acc: 33.6% - val-roc: 0.6071 - val-ap: 0.5446 (0.1s/epoch)
 Epoch  45/1000:Epoch loss: 0.4323 - avg acc: 35.1% - val-roc: 0.6071 - val-ap: 0.5427 (0.1s/epoch)
 Epoch  46/1000:Epoch loss: 0.4420 - avg acc: 33.6% - val-roc: 0.5969 - val-ap: 0.5377 (0.1s/epoch)
@@ -665,17 +663,17 @@ Epoch  62/1000:Epoch loss: 0.4185 - avg acc: 36.6% - val-roc: 0.5204 - val-ap: 0
 Epoch  63/1000:Epoch loss: 0.4150 - avg acc: 34.4% - val-roc: 0.5153 - val-ap: 0.4856 (0.1s/epoch)
 Epoch  64/1000:Epoch loss: 0.5277 - avg acc: 35.9% - val-roc: 0.5153 - val-ap: 0.4856 (0.1s/epoch)
 Epoch  65/1000:Epoch loss: 0.4291 - avg acc: 35.1% - val-roc: 0.5204 - val-ap: 0.4876 (0.1s/epoch)
-Epoch  66/1000:Epoch loss: 0.3790 - avg acc: 35.9% - val-roc: 0.5204 - val-ap: 0.4876 (0.1s/epoch)
+Epoch  66/1000:Epoch loss: 0.3790 - avg acc: 35.9% - val-roc: 0.5204 - val-ap: 0.4876 (0.2s/epoch)
 Epoch  67/1000:Epoch loss: 0.4086 - avg acc: 35.1% - val-roc: 0.5204 - val-ap: 0.4843 (0.1s/epoch)
-Epoch  68/1000:Epoch loss: 0.4300 - avg acc: 35.1% - val-roc: 0.5204 - val-ap: 0.4876 (0.1s/epoch)
-Epoch  69/1000:Epoch loss: 0.4335 - avg acc: 35.1% - val-roc: 0.5102 - val-ap: 0.4805 (0.1s/epoch)
-Epoch  70/1000:Epoch loss: 0.3881 - avg acc: 35.1% - val-roc: 0.5102 - val-ap: 0.4836 (0.1s/epoch)
+Epoch  68/1000:Epoch loss: 0.4300 - avg acc: 35.1% - val-roc: 0.5204 - val-ap: 0.4876 (0.4s/epoch)
+Epoch  69/1000:Epoch loss: 0.4335 - avg acc: 35.1% - val-roc: 0.5102 - val-ap: 0.4805 (0.2s/epoch)
+Epoch  70/1000:Epoch loss: 0.3881 - avg acc: 35.1% - val-roc: 0.5102 - val-ap: 0.4836 (0.3s/epoch)
 Epoch  71/1000:Epoch loss: 0.4211 - avg acc: 35.1% - val-roc: 0.5102 - val-ap: 0.4836 (0.1s/epoch)
 Epoch  72/1000:Epoch loss: 0.4158 - avg acc: 35.1% - val-roc: 0.5000 - val-ap: 0.4758 (0.1s/epoch)
 Epoch  73/1000:Epoch loss: 0.4101 - avg acc: 35.1% - val-roc: 0.5102 - val-ap: 0.4833 (0.1s/epoch)
 Epoch  74/1000:Epoch loss: 0.3905 - avg acc: 35.1% - val-roc: 0.5204 - val-ap: 0.4843 (0.1s/epoch)
 Epoch  75/1000:Epoch loss: 0.3914 - avg acc: 35.9% - val-roc: 0.5204 - val-ap: 0.4867 (0.1s/epoch)
-Epoch  76/1000:Epoch loss: 0.4357 - avg acc: 35.9% - val-roc: 0.5204 - val-ap: 0.4843 (0.1s/epoch)
+Epoch  76/1000:Epoch loss: 0.4357 - avg acc: 35.9% - val-roc: 0.5204 - val-ap: 0.4843 (0.2s/epoch)
 Epoch  77/1000:Epoch loss: 0.4343 - avg acc: 35.1% - val-roc: 0.5153 - val-ap: 0.4847 (0.1s/epoch)
 Epoch  78/1000:Epoch loss: 0.5099 - avg acc: 35.9% - val-roc: 0.5153 - val-ap: 0.4847 (0.1s/epoch)
 Epoch  79/1000:Epoch loss: 0.5545 - avg acc: 35.9% - val-roc: 0.5306 - val-ap: 0.4919 (0.1s/epoch)
@@ -693,11 +691,11 @@ Epoch  90/1000:Epoch loss: 0.4373 - avg acc: 35.9% - val-roc: 0.6020 - val-ap: 0
 Epoch  91/1000:Epoch loss: 0.4715 - avg acc: 35.9% - val-roc: 0.6327 - val-ap: 0.5638 (0.1s/epoch)
 Epoch  92/1000:Epoch loss: 0.4594 - avg acc: 35.1% - val-roc: 0.6327 - val-ap: 0.5648 (0.1s/epoch)
 Epoch  93/1000:Epoch loss: 0.4508 - avg acc: 34.4% - val-roc: 0.6224 - val-ap: 0.5582 (0.1s/epoch)
-Epoch  94/1000:Epoch loss: 0.3507 - avg acc: 36.6% - val-roc: 0.5969 - val-ap: 0.5397 (0.1s/epoch)
+Epoch  94/1000:Epoch loss: 0.3507 - avg acc: 36.6% - val-roc: 0.5969 - val-ap: 0.5397 (0.2s/epoch)
 Epoch  95/1000:Epoch loss: 0.4254 - avg acc: 33.6% - val-roc: 0.5306 - val-ap: 0.4908 (0.1s/epoch)
 Epoch  96/1000:Epoch loss: 0.4024 - avg acc: 35.9% - val-roc: 0.5714 - val-ap: 0.5179 (0.1s/epoch)
-Epoch  97/1000:Epoch loss: 0.3747 - avg acc: 34.4% - val-roc: 0.5051 - val-ap: 0.4779 (0.2s/epoch)
-Epoch  98/1000:Epoch loss: 0.4240 - avg acc: 37.4% - val-roc: 0.5510 - val-ap: 0.5084 (0.1s/epoch)
+Epoch  97/1000:Epoch loss: 0.3747 - avg acc: 34.4% - val-roc: 0.5051 - val-ap: 0.4779 (0.1s/epoch)
+Epoch  98/1000:Epoch loss: 0.4240 - avg acc: 37.4% - val-roc: 0.5510 - val-ap: 0.5084 (0.2s/epoch)
 Epoch  99/1000:Epoch loss: 0.4507 - avg acc: 35.1% - val-roc: 0.5510 - val-ap: 0.5084 (0.1s/epoch)
 Epoch  100/1000:Epoch loss: 0.3873 - avg acc: 58.0% - val-roc: 0.6276 - val-ap: 0.5649 (0.1s/epoch)
 Epoch  101/1000:Epoch loss: 0.4196 - avg acc: 34.4% - val-roc: 0.5255 - val-ap: 0.4916 (0.1s/epoch)
@@ -733,7 +731,7 @@ Epoch  130/1000:Epoch loss: 0.4007 - avg acc: 39.7% - val-roc: 0.5408 - val-ap: 
 Epoch  131/1000:Epoch loss: 0.3650 - avg acc: 36.6% - val-roc: 0.5255 - val-ap: 0.4964 (0.1s/epoch)
 Epoch  132/1000:Epoch loss: 0.3759 - avg acc: 37.4% - val-roc: 0.5612 - val-ap: 0.5168 (0.1s/epoch)
 Epoch  133/1000:Epoch loss: 0.3694 - avg acc: 40.5% - val-roc: 0.5561 - val-ap: 0.5146 (0.1s/epoch)
-Epoch  134/1000:Epoch loss: 0.3571 - avg acc: 39.7% - val-roc: 0.5561 - val-ap: 0.5113 (0.2s/epoch)
+Epoch  134/1000:Epoch loss: 0.3571 - avg acc: 39.7% - val-roc: 0.5561 - val-ap: 0.5113 (0.1s/epoch)
 Epoch  135/1000:Epoch loss: 0.4256 - avg acc: 37.4% - val-roc: 0.5969 - val-ap: 0.5347 (0.1s/epoch)
 Epoch  136/1000:Epoch loss: 0.3580 - avg acc: 38.9% - val-roc: 0.6020 - val-ap: 0.5390 (0.1s/epoch)
 Epoch  137/1000:Epoch loss: 0.3653 - avg acc: 40.5% - val-roc: 0.5918 - val-ap: 0.5405 (0.1s/epoch)
@@ -751,13 +749,13 @@ Epoch  148/1000:Epoch loss: 0.3703 - avg acc: 35.9% - val-roc: 0.5561 - val-ap: 
 Epoch  149/1000:Epoch loss: 0.3511 - avg acc: 35.9% - val-roc: 0.5561 - val-ap: 0.5113 (0.1s/epoch)
 Epoch  150/1000:Epoch loss: 0.3343 - avg acc: 38.9% - val-roc: 0.5765 - val-ap: 0.5298 (0.1s/epoch)
 Epoch  151/1000:Epoch loss: 0.3677 - avg acc: 35.9% - val-roc: 0.5816 - val-ap: 0.5332 (0.1s/epoch)
-Epoch  152/1000:Epoch loss: 0.3494 - avg acc: 35.9% - val-roc: 0.6173 - val-ap: 0.5638 (0.2s/epoch)
+Epoch  152/1000:Epoch loss: 0.3494 - avg acc: 35.9% - val-roc: 0.6173 - val-ap: 0.5638 (0.1s/epoch)
 Epoch  153/1000:Epoch loss: 0.3763 - avg acc: 55.7% - val-roc: 0.6071 - val-ap: 0.5593 (0.1s/epoch)
 Epoch  154/1000:Epoch loss: 0.4055 - avg acc: 39.7% - val-roc: 0.6020 - val-ap: 0.5507 (0.1s/epoch)
 Epoch  155/1000:Epoch loss: 0.3791 - avg acc: 39.7% - val-roc: 0.5663 - val-ap: 0.5243 (0.1s/epoch)
 Epoch  156/1000:Epoch loss: 0.3621 - avg acc: 39.7% - val-roc: 0.5204 - val-ap: 0.4967 (0.1s/epoch)
 Epoch  157/1000:Epoch loss: 0.3379 - avg acc: 39.7% - val-roc: 0.5255 - val-ap: 0.4984 (0.1s/epoch)
-Epoch  158/1000:Epoch loss: 0.3602 - avg acc: 40.5% - val-roc: 0.5612 - val-ap: 0.5168 (0.1s/epoch)
+Epoch  158/1000:Epoch loss: 0.3602 - avg acc: 40.5% - val-roc: 0.5612 - val-ap: 0.5168 (0.2s/epoch)
 Epoch  159/1000:Epoch loss: 0.3240 - avg acc: 41.2% - val-roc: 0.5306 - val-ap: 0.5009 (0.1s/epoch)
 Epoch  160/1000:Epoch loss: 0.3260 - avg acc: 40.5% - val-roc: 0.5510 - val-ap: 0.5100 (0.1s/epoch)
 Epoch  161/1000:Epoch loss: 0.3772 - avg acc: 39.7% - val-roc: 0.5612 - val-ap: 0.5155 (0.1s/epoch)
@@ -771,12 +769,12 @@ Epoch  168/1000:Epoch loss: 0.3611 - avg acc: 38.9% - val-roc: 0.6684 - val-ap: 
 Epoch  169/1000:Epoch loss: 0.3970 - avg acc: 46.6% - val-roc: 0.6276 - val-ap: 0.6037 (0.1s/epoch)
 Epoch  170/1000:Epoch loss: 0.3550 - avg acc: 41.2% - val-roc: 0.5612 - val-ap: 0.5590 (0.1s/epoch)
 Epoch  171/1000:Epoch loss: 0.3617 - avg acc: 39.7% - val-roc: 0.5357 - val-ap: 0.5376 (0.1s/epoch)
-Epoch  172/1000:Epoch loss: 0.3232 - avg acc: 57.3% - val-roc: 0.5663 - val-ap: 0.5566 (0.2s/epoch)
+Epoch  172/1000:Epoch loss: 0.3232 - avg acc: 57.3% - val-roc: 0.5663 - val-ap: 0.5566 (0.1s/epoch)
 Epoch  173/1000:Epoch loss: 0.4046 - avg acc: 39.7% - val-roc: 0.5867 - val-ap: 0.5716 (0.1s/epoch)
 Epoch  174/1000:Epoch loss: 0.3509 - avg acc: 57.3% - val-roc: 0.5765 - val-ap: 0.5414 (0.1s/epoch)
 Epoch  175/1000:Epoch loss: 0.3550 - avg acc: 58.0% - val-roc: 0.5510 - val-ap: 0.5179 (0.1s/epoch)
 Epoch  176/1000:Epoch loss: 0.3521 - avg acc: 41.2% - val-roc: 0.5255 - val-ap: 0.4972 (0.1s/epoch)
-Epoch  177/1000:Epoch loss: 0.3414 - avg acc: 42.7% - val-roc: 0.4949 - val-ap: 0.4914 (0.1s/epoch)
+Epoch  177/1000:Epoch loss: 0.3414 - avg acc: 42.7% - val-roc: 0.4949 - val-ap: 0.4914 (0.2s/epoch)
 Epoch  178/1000:Epoch loss: 0.3667 - avg acc: 43.5% - val-roc: 0.5051 - val-ap: 0.4947 (0.1s/epoch)
 Epoch  179/1000:Epoch loss: 0.3730 - avg acc: 42.0% - val-roc: 0.5510 - val-ap: 0.5117 (0.1s/epoch)
 Epoch  180/1000:Epoch loss: 0.3581 - avg acc: 61.1% - val-roc: 0.5765 - val-ap: 0.5314 (0.1s/epoch)
@@ -813,7 +811,7 @@ Epoch  210/1000:Epoch loss: 0.3031 - avg acc: 56.5% - val-roc: 0.6276 - val-ap: 
 Epoch  211/1000:Epoch loss: 0.3235 - avg acc: 62.6% - val-roc: 0.6582 - val-ap: 0.6181 (0.1s/epoch)
 Epoch  212/1000:Epoch loss: 0.3260 - avg acc: 61.1% - val-roc: 0.6735 - val-ap: 0.6256 (0.1s/epoch)
 Epoch  213/1000:Epoch loss: 0.3444 - avg acc: 47.3% - val-roc: 0.6582 - val-ap: 0.6199 (0.1s/epoch)
-Epoch  214/1000:Epoch loss: 0.3440 - avg acc: 48.9% - val-roc: 0.6224 - val-ap: 0.5965 (0.1s/epoch)
+Epoch  214/1000:Epoch loss: 0.3440 - avg acc: 48.9% - val-roc: 0.6224 - val-ap: 0.5965 (0.2s/epoch)
 Epoch  215/1000:Epoch loss: 0.3041 - avg acc: 67.9% - val-roc: 0.6122 - val-ap: 0.5803 (0.1s/epoch)
 Epoch  216/1000:Epoch loss: 0.4358 - avg acc: 58.8% - val-roc: 0.6122 - val-ap: 0.5719 (0.1s/epoch)
 Epoch  217/1000:Epoch loss: 0.3034 - avg acc: 42.7% - val-roc: 0.4847 - val-ap: 0.4859 (0.1s/epoch)
@@ -829,7 +827,7 @@ Epoch  226/1000:Epoch loss: 0.3610 - avg acc: 50.4% - val-roc: 0.7041 - val-ap: 
 Epoch  227/1000:Epoch loss: 0.3339 - avg acc: 49.6% - val-roc: 0.6582 - val-ap: 0.6226 (0.1s/epoch)
 Epoch  228/1000:Epoch loss: 0.3821 - avg acc: 49.6% - val-roc: 0.6582 - val-ap: 0.6160 (0.1s/epoch)
 Epoch  229/1000:Epoch loss: 0.3072 - avg acc: 64.1% - val-roc: 0.7296 - val-ap: 0.6844 (0.1s/epoch)
-Epoch  230/1000:Epoch loss: 0.3450 - avg acc: 61.8% - val-roc: 0.7449 - val-ap: 0.7012 (0.1s/epoch)
+Epoch  230/1000:Epoch loss: 0.3450 - avg acc: 61.8% - val-roc: 0.7449 - val-ap: 0.7012 (0.2s/epoch)
 Epoch  231/1000:Epoch loss: 0.3385 - avg acc: 50.4% - val-roc: 0.7041 - val-ap: 0.6498 (0.1s/epoch)
 Epoch  232/1000:Epoch loss: 0.3196 - avg acc: 62.6% - val-roc: 0.6684 - val-ap: 0.6424 (0.1s/epoch)
 Epoch  233/1000:Epoch loss: 0.2823 - avg acc: 38.9% - val-roc: 0.5969 - val-ap: 0.5887 (0.1s/epoch)
@@ -870,7 +868,7 @@ Epoch  267/1000:Epoch loss: 0.3240 - avg acc: 83.2% - val-roc: 0.6888 - val-ap: 
 Epoch  268/1000:Epoch loss: 0.3652 - avg acc: 62.6% - val-roc: 0.6837 - val-ap: 0.6677 (0.1s/epoch)
 Epoch  269/1000:Epoch loss: 0.3485 - avg acc: 74.0% - val-roc: 0.7143 - val-ap: 0.6883 (0.1s/epoch)
 Epoch  270/1000:Epoch loss: 0.3179 - avg acc: 48.9% - val-roc: 0.7347 - val-ap: 0.7001 (0.1s/epoch)
-Epoch  271/1000:Epoch loss: 0.3287 - avg acc: 83.2% - val-roc: 0.7500 - val-ap: 0.7154 (0.1s/epoch)
+Epoch  271/1000:Epoch loss: 0.3287 - avg acc: 83.2% - val-roc: 0.7500 - val-ap: 0.7154 (0.2s/epoch)
 Epoch  272/1000:Epoch loss: 0.2999 - avg acc: 63.4% - val-roc: 0.7092 - val-ap: 0.7136 (0.1s/epoch)
 Epoch  273/1000:Epoch loss: 0.3842 - avg acc: 53.4% - val-roc: 0.6173 - val-ap: 0.6191 (0.1s/epoch)
 Epoch  274/1000:Epoch loss: 0.2636 - avg acc: 50.4% - val-roc: 0.6020 - val-ap: 0.5710 (0.1s/epoch)
@@ -912,7 +910,7 @@ Epoch  309/1000:Epoch loss: 0.2941 - avg acc: 53.4% - val-roc: 0.6429 - val-ap: 
 Epoch  310/1000:Epoch loss: 0.3147 - avg acc: 87.0% - val-roc: 0.6224 - val-ap: 0.6202 (0.1s/epoch)
 Epoch  311/1000:Epoch loss: 0.3073 - avg acc: 61.1% - val-roc: 0.6276 - val-ap: 0.6540 (0.1s/epoch)
 Epoch  312/1000:Epoch loss: 0.2952 - avg acc: 84.0% - val-roc: 0.6888 - val-ap: 0.7265 (0.1s/epoch)
-Epoch  313/1000:Epoch loss: 0.3095 - avg acc: 83.2% - val-roc: 0.7296 - val-ap: 0.7739 (0.1s/epoch)
+Epoch  313/1000:Epoch loss: 0.3095 - avg acc: 83.2% - val-roc: 0.7296 - val-ap: 0.7739 (0.2s/epoch)
 Epoch  314/1000:Epoch loss: 0.2539 - avg acc: 85.5% - val-roc: 0.7347 - val-ap: 0.7743 (0.1s/epoch)
 Epoch  315/1000:Epoch loss: 0.2959 - avg acc: 85.5% - val-roc: 0.7143 - val-ap: 0.7420 (0.1s/epoch)
 Epoch  316/1000:Epoch loss: 0.2820 - avg acc: 87.0% - val-roc: 0.6837 - val-ap: 0.6919 (0.1s/epoch)
@@ -961,7 +959,7 @@ Epoch  358/1000:Epoch loss: 0.2909 - avg acc: 64.9% - val-roc: 0.5765 - val-ap: 
 Epoch  359/1000:Epoch loss: 0.2622 - avg acc: 87.8% - val-roc: 0.6173 - val-ap: 0.6133 (0.1s/epoch)
 Epoch  360/1000:Epoch loss: 0.2738 - avg acc: 61.8% - val-roc: 0.6633 - val-ap: 0.6741 (0.1s/epoch)
 Epoch  361/1000:Epoch loss: 0.2612 - avg acc: 87.0% - val-roc: 0.6633 - val-ap: 0.6769 (0.1s/epoch)
-Epoch  362/1000:Epoch loss: 0.2698 - avg acc: 87.0% - val-roc: 0.6633 - val-ap: 0.6837 (0.2s/epoch)
+Epoch  362/1000:Epoch loss: 0.2698 - avg acc: 87.0% - val-roc: 0.6633 - val-ap: 0.6837 (0.1s/epoch)
 Epoch  363/1000:Epoch loss: 0.3020 - avg acc: 64.1% - val-roc: 0.6122 - val-ap: 0.6135 (0.1s/epoch)
 Epoch  364/1000:Epoch loss: 0.2506 - avg acc: 86.3% - val-roc: 0.6122 - val-ap: 0.6135 (0.1s/epoch)
 Epoch  365/1000:Epoch loss: 0.3277 - avg acc: 87.0% - val-roc: 0.5867 - val-ap: 0.5918 (0.1s/epoch)
@@ -1034,7 +1032,7 @@ Epoch  431/1000:Epoch loss: 0.2604 - avg acc: 86.3% - val-roc: 0.6327 - val-ap: 
 Epoch  432/1000:Epoch loss: 0.3341 - avg acc: 87.8% - val-roc: 0.6735 - val-ap: 0.6497 (0.1s/epoch)
 Epoch  433/1000:Epoch loss: 0.3120 - avg acc: 55.7% - val-roc: 0.6735 - val-ap: 0.7126 (0.1s/epoch)
 Epoch  434/1000:Epoch loss: 0.3058 - avg acc: 87.8% - val-roc: 0.7092 - val-ap: 0.7429 (0.1s/epoch)
-Epoch  435/1000:Epoch loss: 0.2793 - avg acc: 85.5% - val-roc: 0.6735 - val-ap: 0.6828 (0.1s/epoch)
+Epoch  435/1000:Epoch loss: 0.2793 - avg acc: 85.5% - val-roc: 0.6735 - val-ap: 0.6828 (0.2s/epoch)
 Epoch  436/1000:Epoch loss: 0.2481 - avg acc: 85.5% - val-roc: 0.6582 - val-ap: 0.6415 (0.1s/epoch)
 Epoch  437/1000:Epoch loss: 0.2176 - avg acc: 87.8% - val-roc: 0.6582 - val-ap: 0.6422 (0.1s/epoch)
 Epoch  438/1000:Epoch loss: 0.2721 - avg acc: 87.8% - val-roc: 0.6939 - val-ap: 0.6708 (0.1s/epoch)
@@ -1044,7 +1042,7 @@ Epoch  441/1000:Epoch loss: 0.2656 - avg acc: 88.5% - val-roc: 0.7245 - val-ap: 
 Epoch  442/1000:Epoch loss: 0.2798 - avg acc: 87.0% - val-roc: 0.7245 - val-ap: 0.6845 (0.1s/epoch)
 Epoch  443/1000:Epoch loss: 0.3162 - avg acc: 87.0% - val-roc: 0.7296 - val-ap: 0.6895 (0.1s/epoch)
 Epoch  444/1000:Epoch loss: 0.2557 - avg acc: 88.5% - val-roc: 0.6990 - val-ap: 0.6617 (0.1s/epoch)
-Epoch  445/1000:Epoch loss: 0.2619 - avg acc: 85.5% - val-roc: 0.6939 - val-ap: 0.6525 (0.1s/epoch)
+Epoch  445/1000:Epoch loss: 0.2619 - avg acc: 85.5% - val-roc: 0.6939 - val-ap: 0.6525 (0.2s/epoch)
 Epoch  446/1000:Epoch loss: 0.2294 - avg acc: 88.5% - val-roc: 0.7500 - val-ap: 0.7694 (0.1s/epoch)
 Epoch  447/1000:Epoch loss: 0.2997 - avg acc: 87.0% - val-roc: 0.7143 - val-ap: 0.7277 (0.1s/epoch)
 Epoch  448/1000:Epoch loss: 0.3703 - avg acc: 88.5% - val-roc: 0.7041 - val-ap: 0.7337 (0.1s/epoch)
@@ -1054,7 +1052,7 @@ Epoch  451/1000:Epoch loss: 0.2811 - avg acc: 88.5% - val-roc: 0.6327 - val-ap: 
 Epoch  452/1000:Epoch loss: 0.2659 - avg acc: 87.0% - val-roc: 0.6429 - val-ap: 0.6614 (0.1s/epoch)
 Epoch  453/1000:Epoch loss: 0.2542 - avg acc: 88.5% - val-roc: 0.6224 - val-ap: 0.6398 (0.1s/epoch)
 Epoch  454/1000:Epoch loss: 0.2265 - avg acc: 88.5% - val-roc: 0.6327 - val-ap: 0.6500 (0.1s/epoch)
-Epoch  455/1000:Epoch loss: 0.2977 - avg acc: 89.3% - val-roc: 0.6224 - val-ap: 0.6120 (0.1s/epoch)
+Epoch  455/1000:Epoch loss: 0.2977 - avg acc: 89.3% - val-roc: 0.6224 - val-ap: 0.6120 (0.2s/epoch)
 Epoch  456/1000:Epoch loss: 0.2736 - avg acc: 87.8% - val-roc: 0.6378 - val-ap: 0.6779 (0.1s/epoch)
 Epoch  457/1000:Epoch loss: 0.2672 - avg acc: 87.8% - val-roc: 0.6378 - val-ap: 0.6789 (0.1s/epoch)
 Epoch  458/1000:Epoch loss: 0.2818 - avg acc: 88.5% - val-roc: 0.6480 - val-ap: 0.6749 (0.1s/epoch)
@@ -1210,7 +1208,7 @@ Epoch  607/1000:Epoch loss: 0.2469 - avg acc: 90.8% - val-roc: 0.6990 - val-ap: 
 Epoch  608/1000:Epoch loss: 0.1716 - avg acc: 90.1% - val-roc: 0.7245 - val-ap: 0.7698 (0.1s/epoch)
 Epoch  609/1000:Epoch loss: 0.2592 - avg acc: 89.3% - val-roc: 0.7347 - val-ap: 0.7602 (0.1s/epoch)
 Epoch  610/1000:Epoch loss: 0.2183 - avg acc: 89.3% - val-roc: 0.7602 - val-ap: 0.7800 (0.1s/epoch)
-Epoch  611/1000:Epoch loss: 0.2185 - avg acc: 90.1% - val-roc: 0.7653 - val-ap: 0.7859 (0.1s/epoch)
+Epoch  611/1000:Epoch loss: 0.2185 - avg acc: 90.1% - val-roc: 0.7653 - val-ap: 0.7859 (0.2s/epoch)
 Epoch  612/1000:Epoch loss: 0.2101 - avg acc: 90.8% - val-roc: 0.6684 - val-ap: 0.6446 (0.1s/epoch)
 Epoch  613/1000:Epoch loss: 0.2101 - avg acc: 90.8% - val-roc: 0.6429 - val-ap: 0.6292 (0.1s/epoch)
 Epoch  614/1000:Epoch loss: 0.1892 - avg acc: 90.8% - val-roc: 0.6939 - val-ap: 0.6656 (0.1s/epoch)
@@ -1233,7 +1231,7 @@ Epoch  630/1000:Epoch loss: 0.2196 - avg acc: 90.1% - val-roc: 0.7398 - val-ap: 
 Epoch  631/1000:Epoch loss: 0.2301 - avg acc: 89.3% - val-roc: 0.7347 - val-ap: 0.6925 (0.1s/epoch)
 Epoch  632/1000:Epoch loss: 0.1962 - avg acc: 90.8% - val-roc: 0.7398 - val-ap: 0.6925 (0.1s/epoch)
 Epoch  633/1000:Epoch loss: 0.2144 - avg acc: 84.0% - val-roc: 0.6990 - val-ap: 0.6519 (0.1s/epoch)
-Epoch  634/1000:Epoch loss: 0.2135 - avg acc: 90.8% - val-roc: 0.7704 - val-ap: 0.7034 (0.1s/epoch)
+Epoch  634/1000:Epoch loss: 0.2135 - avg acc: 90.8% - val-roc: 0.7704 - val-ap: 0.7034 (0.2s/epoch)
 Epoch  635/1000:Epoch loss: 0.2226 - avg acc: 90.1% - val-roc: 0.7755 - val-ap: 0.7566 (0.1s/epoch)
 Epoch  636/1000:Epoch loss: 0.2085 - avg acc: 90.8% - val-roc: 0.7653 - val-ap: 0.7139 (0.1s/epoch)
 Epoch  637/1000:Epoch loss: 0.1853 - avg acc: 84.0% - val-roc: 0.7500 - val-ap: 0.7029 (0.1s/epoch)
@@ -1275,7 +1273,7 @@ Epoch  672/1000:Epoch loss: 0.1855 - avg acc: 88.5% - val-roc: 0.7653 - val-ap: 
 Epoch  673/1000:Epoch loss: 0.1557 - avg acc: 90.8% - val-roc: 0.7653 - val-ap: 0.6996 (0.1s/epoch)
 Epoch  674/1000:Epoch loss: 0.2089 - avg acc: 90.1% - val-roc: 0.7296 - val-ap: 0.6721 (0.1s/epoch)
 Epoch  675/1000:Epoch loss: 0.1816 - avg acc: 90.8% - val-roc: 0.6837 - val-ap: 0.6551 (0.1s/epoch)
-Epoch  676/1000:Epoch loss: 0.1537 - avg acc: 93.1% - val-roc: 0.6837 - val-ap: 0.6546 (0.2s/epoch)
+Epoch  676/1000:Epoch loss: 0.1537 - avg acc: 93.1% - val-roc: 0.6837 - val-ap: 0.6546 (0.1s/epoch)
 Epoch  677/1000:Epoch loss: 0.1417 - avg acc: 91.6% - val-roc: 0.6990 - val-ap: 0.6685 (0.1s/epoch)
 Epoch  678/1000:Epoch loss: 0.1823 - avg acc: 92.4% - val-roc: 0.7449 - val-ap: 0.7053 (0.1s/epoch)
 Epoch  679/1000:Epoch loss: 0.1515 - avg acc: 93.9% - val-roc: 0.7194 - val-ap: 0.7107 (0.1s/epoch)
@@ -1468,8 +1466,8 @@ Epoch  865/1000:Epoch loss: 0.2101 - avg acc: 93.1% - val-roc: 0.7806 - val-ap: 
 Epoch  866/1000:Epoch loss: 0.1162 - avg acc: 93.9% - val-roc: 0.7755 - val-ap: 0.7719 (0.1s/epoch)
 Epoch  867/1000:Epoch loss: 0.1193 - avg acc: 93.1% - val-roc: 0.7755 - val-ap: 0.7719 (0.1s/epoch)
 Epoch  868/1000:Epoch loss: 0.1168 - avg acc: 93.1% - val-roc: 0.7755 - val-ap: 0.7723 (0.1s/epoch)
-Epoch  869/1000:Epoch loss: 0.0967 - avg acc: 93.9% - val-roc: 0.7959 - val-ap: 0.7954 (0.1s/epoch)
-Epoch  870/1000:Epoch loss: 0.1007 - avg acc: 94.7% - val-roc: 0.8112 - val-ap: 0.8186 (0.1s/epoch)
+Epoch  869/1000:Epoch loss: 0.0967 - avg acc: 93.9% - val-roc: 0.7959 - val-ap: 0.7954 (0.2s/epoch)
+Epoch  870/1000:Epoch loss: 0.1007 - avg acc: 94.7% - val-roc: 0.8112 - val-ap: 0.8186 (0.2s/epoch)
 Epoch  871/1000:Epoch loss: 0.1221 - avg acc: 93.1% - val-roc: 0.7551 - val-ap: 0.7619 (0.1s/epoch)
 Epoch  872/1000:Epoch loss: 0.1187 - avg acc: 93.1% - val-roc: 0.7500 - val-ap: 0.7594 (0.1s/epoch)
 Epoch  873/1000:Epoch loss: 0.1426 - avg acc: 93.1% - val-roc: 0.7449 - val-ap: 0.7571 (0.1s/epoch)
@@ -1578,11 +1576,11 @@ Epoch  975/1000:Epoch loss: 0.1220 - avg acc: 93.1% - val-roc: 0.8571 - val-ap: 
 Epoch  976/1000:Epoch loss: 0.1077 - avg acc: 94.7% - val-roc: 0.8316 - val-ap: 0.8267 (0.1s/epoch)
 Epoch  977/1000:Epoch loss: 0.1349 - avg acc: 94.7% - val-roc: 0.8316 - val-ap: 0.8271 (0.1s/epoch)
 Epoch  978/1000:Epoch loss: 0.1499 - avg acc: 94.7% - val-roc: 0.8571 - val-ap: 0.8589 (0.1s/epoch)
-Epoch  979/1000:Epoch loss: 0.0999 - avg acc: 93.1% - val-roc: 0.8673 - val-ap: 0.8850 (0.2s/epoch)
+Epoch  979/1000:Epoch loss: 0.0999 - avg acc: 93.1% - val-roc: 0.8673 - val-ap: 0.8850 (0.1s/epoch)
 Epoch  980/1000:Epoch loss: 0.1020 - avg acc: 96.9% - val-roc: 0.8827 - val-ap: 0.8929 (0.1s/epoch)
 Epoch  981/1000:Epoch loss: 0.1597 - avg acc: 94.7% - val-roc: 0.8418 - val-ap: 0.8564 (0.1s/epoch)
 Epoch  982/1000:Epoch loss: 0.1340 - avg acc: 93.9% - val-roc: 0.8265 - val-ap: 0.8393 (0.1s/epoch)
-Epoch  983/1000:Epoch loss: 0.1146 - avg acc: 93.9% - val-roc: 0.8316 - val-ap: 0.8454 (0.2s/epoch)
+Epoch  983/1000:Epoch loss: 0.1146 - avg acc: 93.9% - val-roc: 0.8316 - val-ap: 0.8454 (0.1s/epoch)
 Epoch  984/1000:Epoch loss: 0.1013 - avg acc: 92.4% - val-roc: 0.7908 - val-ap: 0.8149 (0.1s/epoch)
 Epoch  985/1000:Epoch loss: 0.1193 - avg acc: 95.4% - val-roc: 0.8112 - val-ap: 0.8358 (0.1s/epoch)
 Epoch  986/1000:Epoch loss: 0.1677 - avg acc: 92.4% - val-roc: 0.7806 - val-ap: 0.7871 (0.1s/epoch)
@@ -1604,12 +1602,7 @@ Done!
 Test ROC: 0.8667 - Test AP: 0.9531
 </pre></div>
 </div>
-<div class="output text_html">Waiting for W&B process to finish... <strong style="color:green">(success).</strong></div><script type="application/vnd.jupyter.widget-view+json">{"model_id": "e1c1aba1c07843cd89331fc4afc221c9", "version_major": 2, "version_minor": 0}</script><div class="output text_html"><style>
-    table.wandb td:nth-child(1) { padding: 0 10px; text-align: left ; width: auto;} td:nth-child(2) {text-align: left ; width: 100%}
-    .wandb-row { display: flex; flex-direction: row; flex-wrap: wrap; justify-content: flex-start; width: 100% }
-    .wandb-col { display: flex; flex-direction: column; flex-basis: 100%; flex: 1; padding: 10px; }
-    </style>
-<div class="wandb-row"><div class="wandb-col"><h3>Run history:</h3><br/><table class="wandb"><tr><td>epoch_loss</td><td>██▇▇▆▆▅▆▄▅▅▅▅▄▄▄▄▄▄▄▃▃▃▄▃▃▃▃▃▃▃▂▂▂▂▂▂▁▃▂</td></tr><tr><td>test/test_ap</td><td>▁</td></tr><tr><td>test/test_roc</td><td>▁</td></tr><tr><td>train_acc</td><td>▁▁▁▁▁▂▂▂▄▄▄▃▇▅▄▇▅▇▇▇▇▇▇█▇█▇██▇███▇█▇████</td></tr><tr><td>train_loss</td><td>▆▅▆█▄▆▅▄▄▃▄▆▄▄▃▂▃▄▂▃▃▆▄▄▂▄▆▃▁▃▁▃▄▃▁▂▃▂▁▂</td></tr><tr><td>val/val_ap</td><td>▅▁▁▁▂▂▁▂▂▃▃▂▅▄▄▃▃▃▄▅▃▃▃▃▆▄▅▄▆▅▄▆█▆▅▅▅▅▆▅</td></tr><tr><td>val/val_roc</td><td>▅▁▁▂▃▃▁▂▂▄▃▂▄▃▃▃▂▄▃▄▃▃▃▃▆▅▆▆▇▅▅▇█▆▅▆▆▅▆▆</td></tr></table><br/></div><div class="wandb-col"><h3>Run summary:</h3><br/><table class="wandb"><tr><td>epoch_loss</td><td>0.19137</td></tr><tr><td>test/test_ap</td><td>0.95308</td></tr><tr><td>test/test_roc</td><td>0.86667</td></tr><tr><td>train_acc</td><td>92.36641</td></tr><tr><td>train_loss</td><td>0.08297</td></tr><tr><td>val/val_ap</td><td>0.88813</td></tr><tr><td>val/val_roc</td><td>0.86735</td></tr></table><br/></div></div></div><div class="output text_html"> View run <strong style="color:#cdcd00">fiery-water-81</strong> at: <a href='https://wandb.ai/c-achard/DL%20Biomed%20Homework%202%20-%20v3/runs/4465lp3o' target="_blank">https://wandb.ai/c-achard/DL%20Biomed%20Homework%202%20-%20v3/runs/4465lp3o</a><br/> View job at <a href='https://wandb.ai/c-achard/DL%20Biomed%20Homework%202%20-%20v3/jobs/QXJ0aWZhY3RDb2xsZWN0aW9uOjEwODQxNzgwMg==/version_details/v6' target="_blank">https://wandb.ai/c-achard/DL%20Biomed%20Homework%202%20-%20v3/jobs/QXJ0aWZhY3RDb2xsZWN0aW9uOjEwODQxNzgwMg==/version_details/v6</a><br/>Synced 6 W&B file(s), 1 media file(s), 1 artifact file(s) and 0 other file(s)</div><div class="output text_html">Find logs at: <code>.\wandb\run-20231021_183918-4465lp3o\logs</code></div></div>
+</div>
 </div>
 </section>
 <section id="plots-of-training-history">
@@ -1670,11 +1663,50 @@ Number of correct negative predictions on test set: 8 out of 9
 </div>
 <div class="cell_output docutils container">
 <img alt="../_images/c2309dd8f76271abaab6be8bbde0b2ea7813e91af3824132b2d7f14e8b10c16a.png" src="../_images/c2309dd8f76271abaab6be8bbde0b2ea7813e91af3824132b2d7f14e8b10c16a.png" />
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>This plot shows the distribution of the labels and predictions; predictions are overlayed on top of the labels, showing whether they are missing or surnumerous.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>This plot shows the distribution of the labels and predictions;
+predictions are overlayed on top of the labels,
+showing whether they are missing or surnumerous.
 The labels are 20 positive and 9 negative.
 The predictions are 18 positive and 11 negative.
 </pre></div>
 </div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">utils</span><span class="o">.</span><span class="n">plot_confusion_matrix</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">ys</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/2bc006b75ca0d09702b5eb62f6659b09a9c0edf357d50080db65fd78d78094a9.png" src="../_images/2bc006b75ca0d09702b5eb62f6659b09a9c0edf357d50080db65fd78d78094a9.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mislabeled</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">find_mislabeled_molecules</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">ys</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">mislabeled</span><span class="p">)</span><span class="si">}</span><span class="s2"> mislabeled molecules&quot;</span><span class="p">)</span>
+<span class="n">mols</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">id_mol</span> <span class="ow">in</span> <span class="n">mislabeled</span><span class="p">:</span>
+    <span class="n">mols</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dataloaders</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">dataset</span><span class="p">[</span><span class="n">id_mol</span><span class="p">])</span>
+
+<span class="n">thresh_preds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">preds</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)[</span><span class="n">mislabeled</span><span class="p">]</span>
+<span class="n">utils</span><span class="o">.</span><span class="n">draw_molecule_from_dict</span><span class="p">(</span>
+    <span class="n">mols</span><span class="p">[:</span><span class="mi">5</span><span class="p">],</span>
+    <span class="n">preds</span><span class="o">=</span><span class="n">thresh_preds</span><span class="p">,</span>
+    <span class="n">mol_ids</span><span class="o">=</span><span class="n">mislabeled</span><span class="p">,</span>
+    <span class="n">n_cols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">n_rows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4 mislabeled molecules
+</pre></div>
+</div>
+<img alt="../_images/00c203ad0d12d7cb5d5efad831c822ef429fac4ac0d55fc607bf1bfd566eefa3.png" src="../_images/00c203ad0d12d7cb5d5efad831c822ef429fac4ac0d55fc607bf1bfd566eefa3.png" />
 </div>
 </div>
 </section>
@@ -1736,7 +1768,9 @@ Number of correct negative predictions on test set: 48 out of 63
 </div>
 <div class="cell_output docutils container">
 <img alt="../_images/3ce0642972d7a6049b5823885c7f629ce9adb4b19cf4e20922983a82afcd0ad5.png" src="../_images/3ce0642972d7a6049b5823885c7f629ce9adb4b19cf4e20922983a82afcd0ad5.png" />
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>This plot shows the distribution of the labels and predictions; predictions are overlayed on top of the labels, showing whether they are missing or surnumerous.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>This plot shows the distribution of the labels and predictions;
+predictions are overlayed on top of the labels,
+showing whether they are missing or surnumerous.
 The labels are 125 positive and 63 negative.
 The predictions are 134 positive and 54 negative.
 </pre></div>
